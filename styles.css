@@ -236,6 +236,8 @@ p { margin-bottom: 16px; }
   position: relative;
   z-index: 3;
   padding-inline: 10px;
+  will-change: transform;
+  transition: transform 220ms ease-out;
 }
 .hero-center .hero-actions { justify-content: center; }
 .hero-center .hero-trust {
@@ -263,6 +265,8 @@ p { margin-bottom: 16px; }
   inset: 0;
   z-index: 2;
   pointer-events: none;
+  will-change: transform;
+  transition: transform 260ms ease-out;
 }
 .hero-ui-card {
   position: absolute;

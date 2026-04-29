@@ -165,4 +165,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
     window.addEventListener("resize", showSlide);
   }
+
+  // Subtle hero parallax (desktop only)
+  const supportsFinePointer = window.matchMedia?.("(pointer: fine)")?.matches;
+  if (!prefersReducedMotion && supportsFinePointer) {
+    const hero = document.querySelector(".hero-split");
+    const heroCenter = document.querySelector(".hero-center");
+    const heroCards = document.querySelector(".hero-float-cards");
+
+    if (hero && heroCenter && heroCards) {
+      let raf = 0;
+      const state = { mx: 0, my: 0 };
+
+      const update = () => {
+        raf = 0;
+        heroCenter.style.transform = `translate3d(${(-state.mx * 8).toFixed(2)}px, ${(-state.my * 6).toFixed(2)}px, 0)`;
+        heroCards.style.transform = `translate3d(${(state.mx * 10).toFixed(2)}px, ${(state.my * 8).toFixed(2)}px, 0)`;
+      };
+
+      const onMove = (ev) => {
+        const rect = hero.getBoundingClientRect();
+        const px = (ev.clientX - rect.left) / Math.max(rect.width, 1);
+        const py = (ev.clientY - rect.top) / Math.max(rect.height, 1);
+        state.mx = (px - 0.5) * 2;
+        state.my = (py - 0.5) * 2;
+        if (!raf) raf = requestAnimationFrame(update);
+      };
+
+      const onLeave = () => {
+        state.mx = 0;
+        state.my = 0;
+        if (!raf) raf = requestAnimationFrame(update);
+      };
+
+      const onScroll = () => {
+        const rect = hero.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+        const progress = Math.max(-1, Math.min(1, (rect.top + rect.height * 0.5 - vh * 0.5) / vh));
+        heroCards.style.transform = `translate3d(${(state.mx * 10).toFixed(2)}px, ${(state.my * 8 - progress * 12).toFixed(2)}px, 0)`;
+      };
+
+      hero.addEventListener("mousemove", onMove);
+      hero.addEventListener("mouseleave", onLeave);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    }
+  }
 });
