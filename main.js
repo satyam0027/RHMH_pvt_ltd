@@ -24,12 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const servicesMobileToggle = document.querySelector('.services-mobile-toggle');
-  const servicesMobileSub = document.querySelector('.mobile-services-sub');
-  if (servicesMobileToggle && servicesMobileSub) {
-    servicesMobileToggle.addEventListener('click', (e) => {
+  const servicesMobileChevron = document.querySelector(".services-mobile-chevron");
+  const servicesMobileSub = document.querySelector(".mobile-services-sub");
+  if (servicesMobileChevron && servicesMobileSub) {
+    servicesMobileChevron.addEventListener("click", (e) => {
       e.preventDefault();
-      servicesMobileSub.classList.toggle('open');
+      e.stopPropagation();
+      servicesMobileSub.classList.toggle("open");
     });
   }
 

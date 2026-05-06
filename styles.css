@@ -1630,5 +1630,21 @@ body {
   font-size: 0.82rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: inherit;
+  opacity: 0.72;
+}
+
+.services-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.services-mobile-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
 }
