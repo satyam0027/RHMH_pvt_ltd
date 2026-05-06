@@ -24,6 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const servicesMobileToggle = document.querySelector('.services-mobile-toggle');
+  const servicesMobileSub = document.querySelector('.mobile-services-sub');
+  if (servicesMobileToggle && servicesMobileSub) {
+    servicesMobileToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      servicesMobileSub.classList.toggle('open');
+    });
+  }
+
   const page = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
   document.querySelectorAll("[data-nav]").forEach((link) => {
     if (link.getAttribute("href")?.toLowerCase() === page) link.classList.add("active");
@@ -82,7 +91,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const splitWords = (el) => {
     if (!el || el.dataset.split === "true") return [];
     const words = (el.textContent || "").trim().split(/\s+/).filter(Boolean);
-    el.innerHTML = words.map((word) => `<span class="word">${word}</span>`).join(" ");
+    el.innerHTML = words
+      .map((word, idx) => {
+        const highlight = idx === 0 ? " is-highlight" : "";
+        return `<span class="word hero-word${highlight}">${word}</span>`;
+      })
+      .join(" ");
     el.dataset.split = "true";
     return Array.from(el.querySelectorAll(".word"));
   };
