@@ -3,18 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const mobileMenu = document.querySelector(".mobile-menu");
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-  const hasGSAP = typeof window.gsap !== "undefined";
-  const hasScrollTrigger = typeof window.ScrollTrigger !== "undefined";
-  const hasTHREE = typeof window.THREE !== "undefined";
-
-  if (hasGSAP && hasScrollTrigger) {
-    window.gsap.registerPlugin(window.ScrollTrigger);
-  }
+  const hasGSAP = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
   if (header) {
     const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   if (menuToggle && mobileMenu) {
@@ -22,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileMenu.classList.toggle("open");
       menuToggle.setAttribute("aria-expanded", String(mobileMenu.classList.contains("open")));
     });
-
     mobileMenu.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => {
         mobileMenu.classList.remove("open");
@@ -36,100 +29,35 @@ document.addEventListener("DOMContentLoaded", () => {
     if (link.getAttribute("href")?.toLowerCase() === page) link.classList.add("active");
   });
 
-  const fadeEls = Array.from(document.querySelectorAll(".fade-in"));
-  fadeEls.forEach((el, idx) => {
-    if (!el.dataset.delay) el.dataset.delay = String(Math.min(idx * 70, 280));
-    el.style.transitionDelay = `${el.dataset.delay}ms`;
-  });
-
-  // Reveal animations (GSAP preferred, fallback to IntersectionObserver)
-  if (prefersReducedMotion) {
-    fadeEls.forEach((el) => el.classList.add("visible"));
-  } else if (hasGSAP && hasScrollTrigger) {
-    window.gsap.set(fadeEls, { opacity: 0, y: 14, filter: "blur(6px)" });
-    fadeEls.forEach((el) => {
-      const delay = Number(el.dataset.delay || "0") / 1000;
-      window.gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 0.75,
-        ease: "power3.out",
-        delay,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 88%",
-          once: true,
-        },
-        onStart: () => el.classList.add("visible"),
-      });
-    });
-  } else {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
-    fadeEls.forEach((el) => observer.observe(el));
-  }
-
-  // Counters (GSAP preferred, fallback to requestAnimationFrame)
-  document.querySelectorAll("[data-counter]").forEach((counter) => {
-    const target = Number(counter.dataset.counter || "0");
-    const suffix = counter.dataset.suffix || "";
-    const durationMs = 1100;
-
-    if (prefersReducedMotion) {
-      counter.textContent = `${target}${suffix}`;
-      return;
-    }
-
-    if (hasGSAP && hasScrollTrigger) {
-      const state = { v: 0 };
-      window.gsap.to(state, {
-        v: target,
-        duration: durationMs / 1000,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: counter,
-          start: "top 80%",
-          once: true,
-        },
-        onUpdate: () => {
-          counter.textContent = `${Math.floor(state.v)}${suffix}`;
-        },
-      });
-      return;
-    }
-
-    let started = false;
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting || started) return;
-        started = true;
-        const start = performance.now();
-        const tick = (now) => {
-          const t = Math.min((now - start) / durationMs, 1);
-          const value = Math.floor(easeOutCubic(t) * target);
-          counter.textContent = `${value}${suffix}`;
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      });
-    }, { threshold: 0.5 });
-    counterObserver.observe(counter);
-  });
+  // Ensure base content is visible even if cinematic timelines delay.
+  document.querySelectorAll(".fade-in").forEach((el) => el.classList.add("visible"));
 
   document.querySelectorAll(".accordion-header").forEach((button) => {
     button.addEventListener("click", () => {
       const content = button.nextElementSibling;
       const isOpen = button.classList.contains("open");
-      document.querySelectorAll(".accordion-header").forEach((b) => b.classList.remove("open"));
+      document.querySelectorAll(".accordion-header").forEach((b) => {
+        b.classList.remove("open");
+        b.setAttribute("aria-expanded", "false");
+        const icon = b.querySelector("span");
+        if (icon) icon.textContent = "+";
+      });
       document.querySelectorAll(".accordion-content").forEach((c) => (c.style.maxHeight = null));
       if (!isOpen && content) {
         button.classList.add("open");
+        button.setAttribute("aria-expanded", "true");
+        const icon = button.querySelector("span");
+        if (icon) icon.textContent = "-";
         content.style.maxHeight = `${content.scrollHeight}px`;
+      }
+    });
+  });
+
+  document.querySelectorAll("form[novalidate]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        form.reportValidity();
       }
     });
   });
@@ -151,64 +79,126 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const slides = document.querySelectorAll(".testimonial-card");
-  if (slides.length > 1) {
-    let i = 0;
-    const showSlide = () => {
-      if (window.innerWidth >= 768) return;
-      slides.forEach((slide, idx) => (slide.style.display = idx === i ? "block" : "none"));
+  const splitWords = (el) => {
+    if (!el || el.dataset.split === "true") return [];
+    const words = (el.textContent || "").trim().split(/\s+/).filter(Boolean);
+    el.innerHTML = words.map((word) => `<span class="word">${word}</span>`).join(" ");
+    el.dataset.split = "true";
+    return Array.from(el.querySelectorAll(".word"));
+  };
+
+  const animateCounter = (el) => {
+    if (!el || el.dataset.counted === "true") return;
+    el.dataset.counted = "true";
+
+    const dataTarget = el.dataset.counter;
+    const suffix = el.dataset.suffix || "";
+    const decimals = Number(el.dataset.decimals || "0");
+
+    let target = 0;
+    let prefix = "";
+    let trailing = suffix;
+
+    if (dataTarget) {
+      target = Number(dataTarget || "0");
+    } else {
+      const raw = (el.textContent || "").trim();
+      const match = raw.match(/^([+])?(\d+(?:\.\d+)?)(X|%|x)?$/);
+      if (!match) return;
+      prefix = match[1] || "";
+      target = Number(match[2] || "0");
+      trailing = match[3] || "";
+    }
+
+    const startTime = performance.now();
+    const durationMs = 1000;
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const frame = (now) => {
+      const t = Math.min((now - startTime) / durationMs, 1);
+      const value = ease(t) * target;
+      const formatted = dataTarget ? `${value.toFixed(decimals)}${suffix}` : `${prefix}${value.toFixed(target % 1 ? 1 : 0)}${trailing}`;
+      el.textContent = formatted;
+      if (t < 1) requestAnimationFrame(frame);
     };
-    showSlide();
-    setInterval(() => {
-      i = (i + 1) % slides.length;
-      showSlide();
-    }, 3000);
-    window.addEventListener("resize", showSlide);
+    requestAnimationFrame(frame);
+  };
+
+  const sections = Array.from(document.querySelectorAll("main > section"));
+
+  if (prefersReducedMotion) {
+    sections.forEach((section) => {
+      section.classList.remove("section-hidden");
+      section.classList.add("section-visible");
+    });
+    document.querySelectorAll("[data-counter], .section:nth-of-type(10) .stat-value").forEach((el) => animateCounter(el));
+    return;
   }
 
-  // Subtle hero parallax (desktop only)
-  const supportsFinePointer = window.matchMedia?.("(pointer: fine)")?.matches;
-  if (!prefersReducedMotion && supportsFinePointer) {
-    const hero = document.querySelector(".hero-split");
-    const heroCenter = document.querySelector(".hero-center");
-    const heroCards = document.querySelector(".hero-float-cards");
+  if (hasGSAP) {
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
+    gsap.registerPlugin(ScrollTrigger);
 
-    if (hero && heroCenter && heroCards) {
-      let raf = 0;
-      const state = { mx: 0, my: 0 };
+    const reveal = (triggerEl, targets, vars = {}) => {
+      if (!triggerEl || !targets || !targets.length) return;
+      gsap.from(targets, {
+        opacity: 0,
+        y: 28,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.08,
+        overwrite: "auto",
+        scrollTrigger: {
+          trigger: triggerEl,
+          start: "top 78%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+        ...vars,
+      });
+    };
 
-      const update = () => {
-        raf = 0;
-        heroCenter.style.transform = `translate3d(${(-state.mx * 8).toFixed(2)}px, ${(-state.my * 6).toFixed(2)}px, 0)`;
-        heroCards.style.transform = `translate3d(${(state.mx * 10).toFixed(2)}px, ${(state.my * 8).toFixed(2)}px, 0)`;
-      };
-
-      const onMove = (ev) => {
-        const rect = hero.getBoundingClientRect();
-        const px = (ev.clientX - rect.left) / Math.max(rect.width, 1);
-        const py = (ev.clientY - rect.top) / Math.max(rect.height, 1);
-        state.mx = (px - 0.5) * 2;
-        state.my = (py - 0.5) * 2;
-        if (!raf) raf = requestAnimationFrame(update);
-      };
-
-      const onLeave = () => {
-        state.mx = 0;
-        state.my = 0;
-        if (!raf) raf = requestAnimationFrame(update);
-      };
-
-      const onScroll = () => {
-        const rect = hero.getBoundingClientRect();
-        const vh = window.innerHeight || 1;
-        const progress = Math.max(-1, Math.min(1, (rect.top + rect.height * 0.5 - vh * 0.5) / vh));
-        heroCards.style.transform = `translate3d(${(state.mx * 10).toFixed(2)}px, ${(state.my * 8 - progress * 12).toFixed(2)}px, 0)`;
-      };
-
-      hero.addEventListener("mousemove", onMove);
-      hero.addEventListener("mouseleave", onLeave);
-      window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
+    const hero = sections[0];
+    if (hero) {
+      const heroWords = splitWords(hero.querySelector("h1"));
+      reveal(hero, heroWords, { y: 36, stagger: 0.06, duration: 0.65 });
+      reveal(hero, hero.querySelectorAll(".hero-trust p"), { y: 20, stagger: 0.08, duration: 0.55, delay: 0.1 });
+      const heroVideo = hero.querySelector(".hero-video video");
+      if (heroVideo) {
+        gsap.from(heroVideo, {
+          scale: 1.05,
+          duration: 1.1,
+          ease: "power2.out",
+          scrollTrigger: { trigger: hero, start: "top 80%", once: true },
+        });
+      }
     }
+
+    sections.forEach((section) => {
+      reveal(section, section.querySelectorAll(".card, .stat-box, .step, .testimonial-card, .accordion-item"), { stagger: 0.08 });
+      reveal(section, section.querySelectorAll(".badge, .logo-pill"), { y: 14, scale: 0.97, stagger: 0.05, duration: 0.5 });
+      reveal(section, section.querySelectorAll("input, textarea, button.btn"), { y: 20, stagger: 0.06, duration: 0.55 });
+    });
+
+    document.querySelectorAll(".stat-value").forEach((counterEl) => {
+      ScrollTrigger.create({
+        trigger: counterEl.closest("section") || counterEl,
+        start: "top 76%",
+        once: true,
+        onEnter: () => animateCounter(counterEl),
+      });
+    });
+  } else {
+    // IntersectionObserver fallback (when GSAP unavailable)
+    sections.forEach((section) => section.classList.add("section-hidden"));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.remove("section-hidden");
+        entry.target.classList.add("section-visible");
+        entry.target.querySelectorAll(".stat-value").forEach((el) => animateCounter(el));
+      });
+    }, { threshold: 0.2 });
+    sections.forEach((section) => observer.observe(section));
   }
 });
