@@ -5,6 +5,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   const hasGSAP = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
+  // Top contact bar (email / phone / WhatsApp) injected site-wide.
+  if (header && header.dataset.topbar !== "true") {
+    const topbar = document.createElement("div");
+    topbar.className = "topbar";
+    topbar.innerHTML = `
+      <div class="container topbar-inner">
+        <div class="topbar-left">
+          <a class="topbar-link" href="mailto:hello@redhotmediahouse.com" aria-label="Email Red Hot Media House">
+            <span class="topbar-ico" aria-hidden="true">✉</span>
+            <span>hello@redhotmediahouse.com</span>
+          </a>
+          <a class="topbar-link" href="tel:+91XXXXXXXXXX" aria-label="Call Red Hot Media House">
+            <span class="topbar-ico" aria-hidden="true">☎</span>
+            <span>+91 XXXXXXXXXX</span>
+          </a>
+        </div>
+        <div class="topbar-right">
+          <a class="topbar-link topbar-link--whatsapp" href="https://wa.me/91XXXXXXXXXX" aria-label="Chat on WhatsApp">
+            <span class="topbar-ico" aria-hidden="true">WA</span>
+            <span>WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    `;
+    header.prepend(topbar);
+    header.dataset.topbar = "true";
+  }
+
   // Section graphics: inject lightweight premium SVG marks from mini-title keywords.
   const iconSvgs = {
     about: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8.7 5v10L12 22 3.3 17V7L12 2z" fill="currentColor" opacity=".22"/><path d="M12 5.2l6 3.4v6.8l-6 3.4-6-3.4V8.6l6-3.4z" fill="currentColor"/></svg>`,
@@ -38,6 +66,49 @@ document.addEventListener("DOMContentLoaded", () => {
     iconWrap.innerHTML = svg;
     el.prepend(iconWrap);
     el.dataset.iconized = "true";
+  });
+
+  // Replace leading "✔" in card headings with premium check badge.
+  document.querySelectorAll("h3").forEach((h3) => {
+    if (h3.dataset.checkified === "true") return;
+    const txt = (h3.textContent || "").trim();
+    if (!txt.startsWith("✔")) return;
+    const clean = txt.replace(/^✔\s*/, "");
+    h3.textContent = "";
+    h3.classList.add("card-heading-with-icon");
+    const badge = document.createElement("span");
+    badge.className = "icon-badge icon-badge--img";
+    badge.setAttribute("aria-hidden", "true");
+    const img = document.createElement("img");
+    img.src = "images/icon-check.png";
+    img.alt = "";
+    img.decoding = "async";
+    img.loading = "lazy";
+    badge.appendChild(img);
+    const span = document.createElement("span");
+    span.textContent = clean;
+    h3.appendChild(badge);
+    h3.appendChild(span);
+    h3.dataset.checkified = "true";
+  });
+
+  // Replace emoji-based service tile icons with premium inline SVG icons.
+  const tileIconSvgs = {
+    "🔍": `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 1 0 4.6 13.4l4 4 1.4-1.4-4-4A7.5 7.5 0 0 0 10.5 3zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z" fill="currentColor"/></svg>`,
+    "📱": `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v14h8V5H8zm4 15.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" fill="currentColor"/></svg>`,
+    "💻": `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5zm2 0v10h12V5H6z" fill="currentColor"/><path d="M2 20h20v2H2z" fill="currentColor" opacity=".22"/></svg>`,
+    "💰": `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4V7zm2 2v6h12V9H6z" fill="currentColor"/><path d="M12 10.2c1.3 0 2.2.6 2.2 1.8 0 1.4-1.3 1.7-2.3 1.9-.7.1-1 .3-1 .6 0 .3.3.5 1 .5.6 0 1.1-.2 1.6-.6l1 1.3c-.6.5-1.4.8-2.3.9V18h-1.6v-1c-1.3-.2-2.3-1-2.3-2.3 0-1.5 1.3-1.9 2.4-2.1.7-.1 1-.3 1-.6 0-.3-.3-.5-.9-.5-.7 0-1.4.3-1.9.7l-.9-1.3c.6-.6 1.6-1 2.7-1.1V9h1.6v1.2z" fill="currentColor" opacity=".9"/></svg>`
+  };
+
+  document.querySelectorAll(".card > div[style*=\"font-size:32px\"]").forEach((el) => {
+    if (el.dataset.iconized === "true") return;
+    const emoji = (el.textContent || "").trim();
+    const svg = tileIconSvgs[emoji];
+    if (!svg) return;
+    const wrap = document.createElement("div");
+    wrap.className = "card-icon";
+    wrap.innerHTML = svg;
+    el.replaceWith(wrap);
   });
 
   if (header) {
