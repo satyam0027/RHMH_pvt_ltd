@@ -34,6 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const industriesMobileChevron = document.querySelector(".industries-mobile-chevron");
+  const industriesMobileSub = document.querySelector(".mobile-industries-sub");
+  if (industriesMobileChevron && industriesMobileSub) {
+    industriesMobileChevron.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      industriesMobileSub.classList.toggle("open");
+    });
+  }
+
   const page = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
   document.querySelectorAll("[data-nav]").forEach((link) => {
     if (link.getAttribute("href")?.toLowerCase() === page) link.classList.add("active");
