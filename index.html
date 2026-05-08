@@ -74,20 +74,12 @@
           <input type="email" name="email" placeholder="Email" required>
           <input type="tel" name="phone" placeholder="Phone" required>
           <input type="url" name="website" placeholder="Website (optional)">
-          <button class="uiverse-submit" type="submit" aria-label="Submit lead form">
+          <button class="uiverse-submit btn-pulse" type="submit" aria-label="Submit lead form">
+            <span class="uiverse-submit__shine" aria-hidden="true"></span>
             <span class="uiverse-submit__text">SUBMIT</span>
             <span class="uiverse-submit__icon" aria-hidden="true">
-              <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="1.61321" cy="1.61321" r="1.5"></circle>
-                <circle cx="5.73583" cy="1.61321" r="1.5"></circle>
-                <circle cx="5.73583" cy="5.5566" r="1.5"></circle>
-                <circle cx="9.85851" cy="5.5566" r="1.5"></circle>
-                <circle cx="9.85851" cy="9.5" r="1.5"></circle>
-                <circle cx="13.9811" cy="9.5" r="1.5"></circle>
-                <circle cx="5.73583" cy="13.4434" r="1.5"></circle>
-                <circle cx="9.85851" cy="13.4434" r="1.5"></circle>
-                <circle cx="1.61321" cy="17.3868" r="1.5"></circle>
-                <circle cx="5.73583" cy="17.3868" r="1.5"></circle>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
           </button>
@@ -199,13 +191,134 @@
       </div>
     </section>
 
-    <section class="section light-section">
+    <section class="section light-section industries-band">
       <div class="container fade-in">
         <div class="mini-title">Industries</div>
         <h2>Industry-Focused Digital Marketing Expertise</h2>
-        <div class="tag-row">
-          <a class="badge" href="textile-marketing.html">Textile</a><a class="badge" href="real-estate-marketing.html">Real Estate</a><a class="badge" href="fmcg-marketing.html">FMCG</a><a class="badge" href="healthcare-marketing.html">Healthcare</a><a class="badge" href="trading-marketing.html">Trading</a><a class="badge" href="education-marketing.html">Education</a>
+        <p class="muted">From regulated sectors to fast-moving retail, we tailor performance strategies to the realities of every industry we serve.</p>
+        <div class="industry-grid">
+          <a class="industry-btn" href="real-estate-marketing.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indRe" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9z" fill="url(#indRe)"/><rect x="9.5" y="13" width="5" height="3" rx="0.5" fill="#ffffff" opacity=".55"/></svg>
+            </span>
+            <span class="industry-btn__label">Real Estate</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="healthcare-marketing.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indHc" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22c55e"/><stop offset="100%" stop-color="#12c2e9"/></linearGradient></defs><path d="M12 21s-7-4.6-7-10a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.4-7 10-9 10z" fill="url(#indHc)"/><path d="M11 9h2v2.2h2.2v2H13v2.2h-2v-2.2H8.8v-2H11z" fill="#ffffff"/></svg>
+            </span>
+            <span class="industry-btn__label">Healthcare</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="fmcg-marketing.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indFm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff8a3d"/><stop offset="100%" stop-color="#ff4d4d"/></linearGradient></defs><path d="M3 5h2.4l2.1 10.6a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 1.95-1.55L22 8H7" stroke="url(#indFm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="10" cy="20" r="1.6" fill="url(#indFm)"/><circle cx="18" cy="20" r="1.6" fill="url(#indFm)"/></svg>
+            </span>
+            <span class="industry-btn__label">FMCG</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="trading-marketing.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indTr" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7b61ff"/><stop offset="100%" stop-color="#12c2e9"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="3" fill="url(#indTr)" opacity=".15"/><path d="M5 17l5-5 4 4 5-7" stroke="url(#indTr)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="12" r="1.6" fill="url(#indTr)"/><circle cx="14" cy="16" r="1.6" fill="url(#indTr)"/><circle cx="19" cy="9" r="1.6" fill="url(#indTr)"/></svg>
+            </span>
+            <span class="industry-btn__label">Trading</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="textile-marketing.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indTx" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4d8a"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M4 4h16l-2 5h-3l-3 11-3-11H6L4 4z" fill="url(#indTx)"/><path d="M9 9l3 6 3-6" stroke="#ffffff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/></svg>
+            </span>
+            <span class="industry-btn__label">Textile</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="education-marketing.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indEd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#12c2e9"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M2 9l10-5 10 5-10 5L2 9z" fill="url(#indEd)"/><path d="M6 11.5v4c0 1.6 2.7 3 6 3s6-1.4 6-3v-4" stroke="url(#indEd)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M21 9v5" stroke="url(#indEd)" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <span class="industry-btn__label">Education</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="industries.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indEc" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#ff8a3d"/></linearGradient></defs><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8z" fill="url(#indEc)"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="url(#indEc)" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+            </span>
+            <span class="industry-btn__label">E-commerce</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="industries.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indTv" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#12c2e9"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs><path d="M2.5 14l3-1 5-5 6.5-3a2 2 0 0 1 2 2l-3 6.5-5 5-1 3-2-2-2 2-3-3 2-2-2.5-2.5z" fill="url(#indTv)"/><circle cx="16" cy="8" r="1.6" fill="#ffffff" opacity=".7"/></svg>
+            </span>
+            <span class="industry-btn__label">Travel & Hospitality</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="industries.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indFn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd24d"/><stop offset="100%" stop-color="#ff8a3d"/></linearGradient></defs><path d="M3 9l9-5 9 5v2H3V9z" fill="url(#indFn)"/><path d="M5 11v7M9 11v7M15 11v7M19 11v7" stroke="url(#indFn)" stroke-width="2" stroke-linecap="round"/><path d="M3 19h18v2H3z" fill="url(#indFn)"/></svg>
+            </span>
+            <span class="industry-btn__label">Finance & Banking</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="industries.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indMf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7b61ff"/><stop offset="100%" stop-color="#ff4d8a"/></linearGradient></defs><path d="M3 21V11l5 3V11l5 3V8l8 4v9H3z" fill="url(#indMf)"/><rect x="6" y="16" width="2.5" height="3" fill="#ffffff" opacity=".55"/><rect x="11" y="16" width="2.5" height="3" fill="#ffffff" opacity=".55"/><rect x="16" y="16" width="2.5" height="3" fill="#ffffff" opacity=".55"/></svg>
+            </span>
+            <span class="industry-btn__label">Manufacturing</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="industries.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indIt" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#12c2e9"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M6 17a4 4 0 0 1 0-8 5.5 5.5 0 0 1 10.6-1.5A4.5 4.5 0 0 1 18 17H6z" fill="url(#indIt)"/><path d="M9 13l-1.6 1.6L9 16M15 13l1.6 1.6L15 16M12 12l-1.5 4.5" stroke="#ffffff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg>
+            </span>
+            <span class="industry-btn__label">IT &amp; SaaS</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a class="industry-btn" href="industries.html">
+            <span class="industry-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="indFb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff8a3d"/><stop offset="100%" stop-color="#ff4d4d"/></linearGradient></defs><path d="M5 8a4 4 0 0 1 7-2.6A4 4 0 0 1 19 8c0 .9-.3 1.7-.8 2.3L18 12H6l-.2-1.7A4 4 0 0 1 5 8z" fill="url(#indFb)"/><rect x="6" y="13" width="12" height="2.4" rx="1" fill="url(#indFb)"/><path d="M7 16h10v3a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-3z" fill="url(#indFb)" opacity=".85"/></svg>
+            </span>
+            <span class="industry-btn__label">Food &amp; Beverage</span>
+            <span class="industry-btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
         </div>
+
+        <p style="margin-top: 28px;"><a class="btn btn-primary" href="industries.html"><span class="btn-icon icon-grid" aria-hidden="true"></span>See All Industries We Serve</a></p>
       </div>
     </section>
 
@@ -297,20 +410,12 @@
           <input type="tel" name="final-phone" placeholder="Phone" required>
           <input type="text" name="budget" placeholder="Budget" required>
           <textarea name="message" placeholder="Message" required></textarea>
-          <button class="uiverse-submit uiverse-submit--cta" type="submit" aria-label="Submit contact form">
-            <span class="uiverse-submit__text">SUBMIT</span>
+          <button class="uiverse-submit uiverse-submit--cta btn-pulse" type="submit" aria-label="Submit contact form">
+            <span class="uiverse-submit__shine" aria-hidden="true"></span>
+            <span class="uiverse-submit__text">SEND MESSAGE</span>
             <span class="uiverse-submit__icon" aria-hidden="true">
-              <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="1.61321" cy="1.61321" r="1.5"></circle>
-                <circle cx="5.73583" cy="1.61321" r="1.5"></circle>
-                <circle cx="5.73583" cy="5.5566" r="1.5"></circle>
-                <circle cx="9.85851" cy="5.5566" r="1.5"></circle>
-                <circle cx="9.85851" cy="9.5" r="1.5"></circle>
-                <circle cx="13.9811" cy="9.5" r="1.5"></circle>
-                <circle cx="5.73583" cy="13.4434" r="1.5"></circle>
-                <circle cx="9.85851" cy="13.4434" r="1.5"></circle>
-                <circle cx="1.61321" cy="17.3868" r="1.5"></circle>
-                <circle cx="5.73583" cy="17.3868" r="1.5"></circle>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path d="M3 11.5l18-7-7 18-2.5-7.5L3 11.5z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="rgba(255,255,255,0.18)"/>
               </svg>
             </span>
           </button>
