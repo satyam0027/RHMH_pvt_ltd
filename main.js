@@ -205,6 +205,85 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ------------------------------------------------------------
+  // Testimonials (vertical auto-scrolling columns)
+  // Preserves existing testimonial content (quotes + names).
+  // ------------------------------------------------------------
+  const col1 = document.getElementById("col1");
+  const col2 = document.getElementById("col2");
+  const col3 = document.getElementById("col3");
+  if (col1 && col2 && col3) {
+    const testimonials = [
+      {
+        text: "“Red Hot Media House transformed our growth trajectory with a clear strategy and sharp execution.”",
+        name: "Client Name",
+        role: "Company Name",
+        image: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">C</text></svg>`),
+      },
+      {
+        text: "“Their AI-driven campaign optimization helped us improve leads and reduce acquisition costs consistently.”",
+        name: "Client Name",
+        role: "Company Name",
+        image: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">R</text></svg>`),
+      },
+      {
+        text: "“From branding to performance marketing, the team delivered measurable business impact in months.”",
+        name: "Client Name",
+        role: "Company Name",
+        image: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#92400e"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">M</text></svg>`),
+      },
+    ];
+
+    const firstColumn = testimonials.slice(0, 3);
+    const secondColumn = testimonials.slice(0, 3);
+    const thirdColumn = testimonials.slice(0, 3);
+
+    function buildColumn(colId, items, duration) {
+      const col = document.getElementById(colId);
+      if (!col) return;
+
+      col.innerHTML = "";
+      const doubled = [...items, ...items];
+      doubled.forEach(({ text, name, role, image }) => {
+        const card = document.createElement("div");
+        card.className = "testimonial-card";
+        card.innerHTML = `
+          <p>${text}</p>
+          <div class="testimonial-author">
+            <img src="${image}" alt="${name}" />
+            <div>
+              <div class="author-name">${name}</div>
+              <div class="author-role">${role}</div>
+            </div>
+          </div>
+        `;
+        col.appendChild(card);
+      });
+
+      let pos = 0;
+      // Faster scroll (was 60/duration)
+      const speed = 140 / duration;
+
+      function getHalfHeight() {
+        return col.scrollHeight / 2;
+      }
+
+      function animate() {
+        pos += speed * 0.016;
+        const half = getHalfHeight();
+        if (half > 0 && pos >= half) pos -= half;
+        col.style.transform = `translateY(-${pos}px)`;
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    buildColumn("col1", firstColumn, 15);
+    buildColumn("col2", secondColumn, 19);
+    buildColumn("col3", thirdColumn, 17);
+  }
+
   const splitWords = (el) => {
     if (!el || el.dataset.split === "true") return [];
     const words = (el.textContent || "").trim().split(/\s+/).filter(Boolean);
@@ -255,6 +334,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const sections = Array.from(document.querySelectorAll("main > section"));
+
+  // Alternate section header alignment (left / right / center)
+  // Only affects the header elements (mini-title, h2, muted intro),
+  // not grids/cards/forms.
+  const alignCycle = ["align-left", "align-right", "align-center"];
+  let alignIdx = 0;
+  sections.forEach((section) => {
+    // Skip hero + special full-bleed sections
+    if (section.classList.contains("hero-split")) return;
+    if (section.classList.contains("lead-strip")) return;
+
+    section.classList.remove("align-left", "align-right", "align-center");
+    section.classList.add(alignCycle[alignIdx % alignCycle.length]);
+    alignIdx += 1;
+  });
 
   if (prefersReducedMotion) {
     sections.forEach((section) => {
@@ -325,12 +419,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     sections.forEach((section) => {
+      const isCenter = section.classList.contains("align-center");
+      const isLeft = section.classList.contains("align-left");
+      const isRight = section.classList.contains("align-right");
+
+      // Direction rules:
+      // - center: top -> bottom (y)
+      // - left aligned content: right -> left (x+)
+      // - right aligned content: left -> right (x-)
+      const dir = isCenter
+        ? { x: 0, y: 22 }
+        : isLeft
+          ? { x: 28, y: 0 }
+          : isRight
+            ? { x: -28, y: 0 }
+            : { x: 0, y: 22 };
+
       // Premium feel: animate section headings (word-by-word)
       const h2Words = splitWords(section.querySelector("h2"));
-      reveal(section, h2Words, { y: 22, stagger: 0.05, duration: 0.6 });
-      reveal(section, section.querySelectorAll(".card, .stat-box, .step, .testimonial-card, .accordion-item"), { stagger: 0.08 });
-      reveal(section, section.querySelectorAll(".badge, .logo-pill"), { y: 14, scale: 0.97, stagger: 0.05, duration: 0.5 });
-      reveal(section, section.querySelectorAll("input, textarea, button.btn"), { y: 20, stagger: 0.06, duration: 0.55 });
+      reveal(section, h2Words, { ...dir, stagger: 0.05, duration: 0.6 });
+
+      // Cards + blocks: follow direction, but slightly softer
+      const blocks = section.querySelectorAll(".card, .stat-box, .step, .testimonial-card, .accordion-item");
+      reveal(section, blocks, { x: dir.x ? dir.x * 0.8 : 0, y: dir.y ? dir.y * 0.8 : 18, stagger: 0.08 });
+
+      // Pills/badges: subtle pop-in
+      const pills = section.querySelectorAll(".badge, .logo-pill, .mini-title");
+      reveal(section, pills, { x: dir.x ? dir.x * 0.6 : 0, y: dir.y ? 14 : 0, scale: 0.97, stagger: 0.05, duration: 0.5 });
+
+      // Inputs/buttons: match direction for a cohesive entrance
+      const fields = section.querySelectorAll("input, textarea, button.btn");
+      reveal(section, fields, { x: dir.x ? dir.x * 0.7 : 0, y: dir.y ? 18 : 0, stagger: 0.06, duration: 0.55 });
     });
 
     document.querySelectorAll(".stat-value").forEach((counterEl) => {
@@ -353,5 +472,86 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }, { threshold: 0.2 });
     sections.forEach((section) => observer.observe(section));
+  }
+
+  // ------------------------------------------------------------
+  // Logo carousel (Trusted by) — infinite auto-scroll
+  // Keep existing logo names from the old section.
+  // ------------------------------------------------------------
+  const track = document.getElementById("logoTrack");
+  if (track) {
+    const logos = [
+      { name: "Vertex Labs", image: "" },
+      { name: "Northline Foods", image: "" },
+      { name: "Skyline Realty", image: "" },
+      { name: "NovaMedix", image: "" },
+      { name: "UrbanCraft", image: "" },
+      { name: "Meridian Textiles", image: "" },
+      { name: "Pacific Trade Co.", image: "" },
+      { name: "BrightPath Education", image: "" },
+      { name: "CoreGrid Systems", image: "" },
+    ];
+
+    // This project previously used text-only "fake logos".
+    // Convert names into lightweight SVG logo images (data URLs).
+    const svgLogo = (name) => {
+      const safe = String(name || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="220" height="48" viewBox="0 0 220 48">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#111827"/>
+              <stop offset="1" stop-color="#6b7280"/>
+            </linearGradient>
+          </defs>
+          <rect x="0.5" y="0.5" width="219" height="47" rx="12" fill="white" fill-opacity="0" />
+          <text x="110" y="30" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="16" font-weight="700" fill="url(#g)">${safe}</text>
+        </svg>
+      `.trim();
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+    };
+
+    logos.forEach((l) => {
+      if (!l.image) l.image = svgLogo(l.name);
+    });
+
+    function buildTrack() {
+      track.innerHTML = "";
+      [...logos, ...logos, ...logos].forEach((logo) => {
+        const item = document.createElement("div");
+        item.className = "carousel-item";
+        const img = document.createElement("img");
+        img.src = logo.image;
+        img.alt = logo.name;
+        item.appendChild(img);
+        track.appendChild(item);
+      });
+    }
+
+    buildTrack();
+
+    let pos = 0;
+    let paused = false;
+
+    function getSingleWidth() {
+      const items = track.querySelectorAll(".carousel-item");
+      let w = 0;
+      for (let i = 0; i < logos.length; i++) w += items[i]?.offsetWidth || 0;
+      return w;
+    }
+
+    function animate() {
+      if (!paused) {
+        pos += 0.5;
+        const singleWidth = getSingleWidth();
+        if (singleWidth > 0 && pos >= singleWidth) pos -= singleWidth;
+        track.style.transform = `translateX(-${pos}px)`;
+      }
+      requestAnimationFrame(animate);
+    }
+
+    track.addEventListener("mouseenter", () => (paused = true));
+    track.addEventListener("mouseleave", () => (paused = false));
+    requestAnimationFrame(animate);
   }
 });
