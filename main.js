@@ -647,30 +647,103 @@ document.addEventListener("DOMContentLoaded", () => {
   const col2 = document.getElementById("col2");
   const col3 = document.getElementById("col3");
   if (col1 && col2 && col3) {
+    const avatar = (letter, c1, c2) =>
+      "data:image/svg+xml;charset=utf-8," +
+      encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">${letter}</text></svg>`
+      );
+
     const testimonials = [
       {
-        text: "“Red Hot Media House transformed our growth trajectory with a clear strategy and sharp execution.”",
-        name: "Client Name",
-        role: "Company Name",
-        image: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">C</text></svg>`),
+        text: "“Our pre-launch campaigns and local SEO brought solid walk-ins and broker interest faster than we expected. Reporting was clear and the team stayed hands-on until handover.”",
+        name: "Vikram Singh",
+        role: "Director, Radha Rani Residency Pvt Ltd",
+        image: avatar("V", "#5eead4", "#0d9488"),
       },
       {
-        text: "“Their AI-driven campaign optimization helped us improve leads and reduce acquisition costs consistently.”",
-        name: "Client Name",
-        role: "Company Name",
-        image: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">R</text></svg>`),
+        text: "“Lead quality from Meta and Google improved after they rebuilt our funnels and ad creative. We finally measure cost per qualified lead instead of guessing.”",
+        name: "Neha Kapoor",
+        role: "Co-founder, Property Wale",
+        image: avatar("N", "#fcd34d", "#b45309"),
       },
       {
-        text: "“From branding to performance marketing, the team delivered measurable business impact in months.”",
-        name: "Client Name",
-        role: "Company Name",
-        image: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#92400e"/></linearGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="40" y="48" text-anchor="middle" font-family="Inter,system-ui" font-size="28" font-weight="800" fill="#111">M</text></svg>`),
+        text: "“They kept our social presence playful without looking cheap. Parents mention Instagram before the website, and engagement on reels has been a real footfall driver.”",
+        name: "Rahul Desai",
+        role: "Founder, TUK&TUK Kids",
+        image: avatar("R", "#93c5fd", "#1d4ed8"),
+      },
+      {
+        text: "“Catalogue creative and performance banners finally look like one brand. Distributors notice the consistency, and our festive push broke last year’s online sales.”",
+        name: "Kavya Iyer",
+        role: "Brand Head, Malanchi",
+        image: avatar("K", "#fdba74", "#c2410c"),
+      },
+      {
+        text: "“Healthcare marketing needs the right tone. Organic visibility and appointment-related queries are up, and nothing feels pushy or off-brand for a fertility-focused care centre.”",
+        name: "Sanjay Menon",
+        role: "Centre Administrator, Medini Care",
+        image: avatar("S", "#fbcfe8", "#be185d"),
+      },
+      {
+        text: "“We’re B2B and technical. They turned our services into landing pages and ad copy that actually bring RFQs from serious project owners, not random clicks.”",
+        name: "Arjun Patel",
+        role: "Business Development, mtb Engineers",
+        image: avatar("A", "#86efac", "#15803d"),
+      },
+      {
+        text: "“Local search and our Google Business profile were weak. Now key specialties show up reliably, and the team shifts budgets when a campaign saturates.”",
+        name: "Meera Joshi",
+        role: "Marketing Coordinator, Kashvi Multi Speciality Center",
+        image: avatar("M", "#6ee7b7", "#047857"),
+      },
+      {
+        text: "“They respected a calm, trust-first voice. Clearer website paths and patient education content cut repeat phone questions and made first visits easier.”",
+        name: "Aarti Nair",
+        role: "Practice Manager, Healing Women Clinic",
+        image: avatar("A", "#f9a8d4", "#9d174d"),
+      },
+      {
+        text: "“Tracking and remarketing were wired properly from day one. We see steadier appointment requests from high-intent searches in our city.”",
+        name: "Ritu Saxena",
+        role: "Clinic Manager, Dr. Jyoti Bhaskar — Caring Hands",
+        image: avatar("R", "#e9d5ff", "#6b21a8"),
+      },
+      {
+        text: "“Seasonal campaigns finally line up online with what’s in the store. Festive ROAS has been the strongest we’ve seen, without discounting our brand.”",
+        name: "Shreya Malhotra",
+        role: "Owner, Galleria Clothings",
+        image: avatar("S", "#fca5a5", "#b91c1c"),
+      },
+      {
+        text: "“Case studies and LinkedIn targeting put us in front of architects and corporates we actually want. Inquiries are fewer but much more relevant for fit-out work.”",
+        name: "Karan Thakur",
+        role: "Director, Brandkettle",
+        image: avatar("K", "#bbf7d0", "#14532d"),
+      },
+      {
+        text: "“Our digital presence finally matches how we operate on the ground. Inbound leads are easier for the team to qualify and follow up.”",
+        name: "Pankaj Sahani",
+        role: "Partner, Diwan Chand Sahani & Sons LLP",
+        image: avatar("P", "#fde047", "#365314"),
+      },
+      {
+        text: "“Story-led creatives and tight geo-targeting reached plot buyers without wasteful spend. Weekly readouts kept sales and marketing aligned on what was working.”",
+        name: "Devika Nambiar",
+        role: "Project Lead, Bansuri Dham Vrindavan Farms",
+        image: avatar("D", "#a7f3d0", "#0f766e"),
       },
     ];
 
-    const firstColumn = testimonials.slice(0, 3);
-    const secondColumn = testimonials.slice(0, 3);
-    const thirdColumn = testimonials.slice(0, 3);
+    const firstColumn = testimonials.slice(0, 5);
+    const secondColumn = testimonials.slice(5, 10);
+    const thirdColumn = testimonials.slice(10, 13);
+
+    const escHtml = (s) =>
+      String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
 
     function buildColumn(colId, items, duration) {
       const col = document.getElementById(colId);
@@ -682,12 +755,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = document.createElement("div");
         card.className = "testimonial-card";
         card.innerHTML = `
-          <p>${text}</p>
+          <p>${escHtml(text)}</p>
           <div class="testimonial-author">
-            <img src="${image}" alt="${name}" />
+            <img src="${image.replace(/"/g, "&quot;")}" alt="${escHtml(name)}" />
             <div>
-              <div class="author-name">${name}</div>
-              <div class="author-role">${role}</div>
+              <div class="author-name">${escHtml(name)}</div>
+              <div class="author-role">${escHtml(role)}</div>
             </div>
           </div>
         `;
@@ -967,15 +1040,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const track = document.getElementById("logoTrack");
   if (track) {
     const logos = [
-      { name: "Vertex Labs", image: "" },
-      { name: "Northline Foods", image: "" },
-      { name: "Skyline Realty", image: "" },
-      { name: "NovaMedix", image: "" },
-      { name: "UrbanCraft", image: "" },
-      { name: "Meridian Textiles", image: "" },
-      { name: "Pacific Trade Co.", image: "" },
-      { name: "BrightPath Education", image: "" },
-      { name: "CoreGrid Systems", image: "" },
+      { name: "Radha Rani Residency Pvt Ltd", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (2).jpeg" },
+      { name: "Property Wale", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (3).jpeg" },
+      { name: "TUK&TUK Kids", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (4).jpeg" },
+      { name: "Malanchi", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (5).jpeg" },
+      { name: "Medini Care", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (6).jpeg" },
+      { name: "mtb Engineers", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (7).jpeg" },
+      { name: "Kashvi Multi Speciality Center", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (8).jpeg" },
+      { name: "Healing Women Clinic", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (9).jpeg" },
+      { name: "Dr. Jyoti Bhaskar — Caring Hands", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (10).jpeg" },
+      { name: "Galleria Clothings", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (11).jpeg" },
+      { name: "Brandkettle", image: "images/brandkettle.jpg" },
+      { name: "Diwan Chand Sahani & Sons LLP", image: "images/Dcs.jpg" },
+      { name: "Bansuri Dham Vrindavan Farms", image: "images/vertex-labs.png" },
     ];
 
     // This project previously used text-only "fake logos".
@@ -1007,7 +1084,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = document.createElement("div");
         item.className = "carousel-item";
         const img = document.createElement("img");
-        img.src = logo.image;
+        img.src = logo.image.startsWith("data:") ? logo.image : encodeURI(logo.image);
         img.alt = logo.name;
         item.appendChild(img);
         track.appendChild(item);
@@ -1031,7 +1108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pos += 0.5;
         const singleWidth = getSingleWidth();
         if (singleWidth > 0 && pos >= singleWidth) pos -= singleWidth;
-        track.style.transform = `translateX(-${pos}px)`;
+        track.style.transform = `translate3d(-${Math.round(pos)}px, 0, 0)`;
       }
       requestAnimationFrame(animate);
     }
