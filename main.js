@@ -13,17 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
     topbar.innerHTML = `
       <div class="container topbar-inner">
         <div class="topbar-left">
-          <a class="topbar-link" href="mailto:hello@redhotmediahouse.com" aria-label="Email Red Hot Media House">
+          <a class="topbar-link" href="mailto:info@redhotmediahouse.com" aria-label="Email Red Hot Media House">
             <span class="topbar-ico" aria-hidden="true">✉</span>
-            <span>hello@redhotmediahouse.com</span>
+            <span>info@redhotmediahouse.com</span>
           </a>
-          <a class="topbar-link" href="tel:+91XXXXXXXXXX" aria-label="Call Red Hot Media House">
+          <a class="topbar-link" href="tel:+919582732323" aria-label="Call Red Hot Media House">
             <span class="topbar-ico" aria-hidden="true">☎</span>
-            <span>+91 XXXXXXXXXX</span>
+            <span>+91 95827 32323</span>
           </a>
         </div>
         <div class="topbar-right">
-          <a class="topbar-link topbar-link--whatsapp" href="https://wa.me/91XXXXXXXXXX" aria-label="Chat on WhatsApp">
+          <a class="topbar-link topbar-link--whatsapp" href="https://wa.me/919582732323" aria-label="Chat on WhatsApp">
             <span class="topbar-ico" aria-hidden="true"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block"><defs><linearGradient id="waGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#25d366"/><stop offset="100%" stop-color="#128c7e"/></linearGradient></defs><path d="M20.5 3.4A10.4 10.4 0 0 0 3.6 16.1L2 22l6-1.6A10.4 10.4 0 1 0 20.5 3.4zm-8.4 16a8.6 8.6 0 0 1-4.4-1.2l-.3-.2-3.6 1 1-3.5-.2-.3a8.6 8.6 0 1 1 7.5 4.2zm4.7-6.5c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.1-.5 0a7 7 0 0 1-2.1-1.3 7.7 7.7 0 0 1-1.4-1.8c-.2-.3 0-.4.1-.5l.4-.4.2-.4c.1-.1 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4 5.4 5.4 0 0 0 3 .7c.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.3-.2-.6-.3z" fill="url(#waGrad)"/></svg></span>
             <span>WhatsApp</span>
           </a>
@@ -59,9 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="footer-eyebrow">Newsletter</span>
           <h3>Stay ahead of the curve</h3>
           <p>Get growth playbooks, case studies & performance marketing insights — delivered straight to your inbox.</p>
-          <form class="footer-newsletter-form" action="#" method="post" novalidate>
+          <form class="footer-newsletter-form" action="https://formsubmit.co/info@redhotmediahouse.com" method="POST" data-form="Newsletter Subscription" novalidate>
             <label for="footer-newsletter-email" class="visually-hidden">Email address</label>
             <input id="footer-newsletter-email" type="email" name="newsletter-email" placeholder="Enter your work email" required>
+            <input type="hidden" name="_subject" value="New Newsletter Subscriber — Red Hot Media House">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_source" value="Site footer — newsletter signup">
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;opacity:0;pointer-events:none;">
             <button type="submit" aria-label="Subscribe to newsletter">
               <span>Subscribe</span>
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -74,22 +79,22 @@ document.addEventListener("DOMContentLoaded", () => {
           <h4>Follow Red Hot Media House</h4>
           <p>Tag us in your wins. We share growth wins from across the network.</p>
           <div class="footer-social-row">
-            <a class="social-icon social-icon--linkedin" href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <a class="social-icon social-icon--linkedin" href="https://www.linkedin.com/company/redhotmediahousepvtltd/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
             </a>
-            <a class="social-icon social-icon--instagram" href="#" aria-label="Instagram" target="_blank" rel="noopener">
+            <a class="social-icon social-icon--instagram" href="https://www.instagram.com/redhotmediahousepvtltd?igsh=OXFta29xZTRsYjI0" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
             </a>
-            <a class="social-icon social-icon--youtube" href="#" aria-label="YouTube" target="_blank" rel="noopener">
+            <a class="social-icon social-icon--youtube" href="https://www.youtube.com/@redhotmediahousepvtltd?si=SOjAm09r1Xa57Tuc" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2C0 8 0 12 0 12s0 4 .5 5.8A3 3 0 0 0 2.6 19.9c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
             </a>
-            <a class="social-icon social-icon--facebook" href="#" aria-label="Facebook" target="_blank" rel="noopener">
+            <a class="social-icon social-icon--facebook" href="https://www.facebook.com/redhotmediahousepvtltd/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22.68 0H1.32C.59 0 0 .59 0 1.32v21.36C0 23.41.59 24 1.32 24H12.8v-9.29H9.69v-3.62h3.11V8.41c0-3.1 1.89-4.79 4.66-4.79 1.32 0 2.46.1 2.79.14v3.24h-1.91c-1.5 0-1.79.71-1.79 1.76v2.31h3.58l-.47 3.62h-3.11V24h6.13c.73 0 1.32-.59 1.32-1.32V1.32C24 .59 23.41 0 22.68 0z"/></svg>
             </a>
-            <a class="social-icon social-icon--x" href="#" aria-label="X (Twitter)" target="_blank" rel="noopener">
+            <a class="social-icon social-icon--x" href="https://x.com/rhmh2019" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.53 2H21l-7.6 8.68L22.5 22h-7.07l-5.55-7.26L3.5 22H0l8.13-9.29L1 2h7.24l5.02 6.64L17.53 2zm-2.48 18h1.96L7.06 4H4.96l10.09 16z"/></svg>
             </a>
-            <a class="social-icon social-icon--whatsapp" href="https://wa.me/91XXXXXXXXXX" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <a class="social-icon social-icon--whatsapp" href="https://wa.me/919582732323" aria-label="WhatsApp" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.5 3.4A10.4 10.4 0 0 0 3.6 16.1L2 22l6-1.6A10.4 10.4 0 1 0 20.5 3.4zm-8.4 16a8.6 8.6 0 0 1-4.4-1.2l-.3-.2-3.6 1 1-3.5-.2-.3a8.6 8.6 0 1 1 7.5 4.2zm4.7-6.5c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.1-.5 0a7 7 0 0 1-2.1-1.3 7.7 7.7 0 0 1-1.4-1.8c-.2-.3 0-.4.1-.5l.4-.4.2-.4c.1-.1 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4 5.4 5.4 0 0 0 3 .7c.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.3-.2-.6-.3z"/></svg>
             </a>
           </div>
@@ -118,6 +123,167 @@ document.addEventListener("DOMContentLoaded", () => {
 
     footer.dataset.enriched = "true";
   }
+
+  // ----------------------------------------------------------------
+  // Global form handler — every <form> whose action targets
+  // formsubmit.co (or has a data-form attribute) is hijacked and sent
+  // via AJAX to FormSubmit.co. Submissions land in
+  // info@redhotmediahouse.com after the one-time activation email.
+  // ----------------------------------------------------------------
+  const FORM_ENDPOINT = "https://formsubmit.co/ajax/info@redhotmediahouse.com";
+
+  // Toast notification host (created lazily on first message)
+  let __toastHost = null;
+  function ensureToastHost() {
+    if (__toastHost) return __toastHost;
+    __toastHost = document.createElement("div");
+    __toastHost.className = "rh-toast-host";
+    __toastHost.setAttribute("aria-live", "polite");
+    __toastHost.setAttribute("role", "status");
+    document.body.appendChild(__toastHost);
+    return __toastHost;
+  }
+  function showToast(kind, title, body) {
+    const host = ensureToastHost();
+    const t = document.createElement("div");
+    t.className = `rh-toast rh-toast--${kind}`;
+    t.innerHTML = `
+      <span class="rh-toast__icon" aria-hidden="true">
+        ${
+          kind === "success"
+            ? '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#22c55e"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#ff4d4d"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>'
+        }
+      </span>
+      <div class="rh-toast__body">
+        <strong>${title}</strong>
+        <p>${body}</p>
+      </div>
+      <button class="rh-toast__close" type="button" aria-label="Dismiss notification">×</button>
+    `;
+    host.appendChild(t);
+    requestAnimationFrame(() => t.classList.add("is-in"));
+    const remove = () => {
+      t.classList.remove("is-in");
+      t.classList.add("is-out");
+      setTimeout(() => t.remove(), 360);
+    };
+    t.querySelector(".rh-toast__close").addEventListener("click", remove);
+    setTimeout(remove, kind === "success" ? 6000 : 8000);
+  }
+
+  function isFormHandled(form) {
+    const action = (form.getAttribute("action") || "").toLowerCase();
+    return action.includes("formsubmit.co") || form.hasAttribute("data-form");
+  }
+
+  document.addEventListener("submit", async (e) => {
+    const form = e.target;
+    if (!form || form.tagName !== "FORM") return;
+    if (!isFormHandled(form)) return;
+    if (form.dataset.handlerBound === "skip") return;
+
+    e.preventDefault();
+
+    // Honeypot — silently drop spam bots
+    const honey = form.querySelector('input[name="_honey"]');
+    if (honey && honey.value) {
+      showToast("success", "Thanks!", "We'll be in touch shortly.");
+      form.reset();
+      return;
+    }
+
+    // Native HTML5 validation
+    if (typeof form.checkValidity === "function" && !form.checkValidity()) {
+      if (typeof form.reportValidity === "function") form.reportValidity();
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+    const previousDisabled = submitBtn ? submitBtn.disabled : false;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add("is-loading");
+      const textSpan = submitBtn.querySelector(
+        ".uiverse-submit__text, span:not(.uiverse-submit__icon):not(.uiverse-submit__shine)"
+      );
+      if (textSpan) {
+        submitBtn.dataset.savedLabel = textSpan.textContent;
+        submitBtn.dataset.savedTarget = "span";
+        textSpan.textContent = "Sending…";
+      } else {
+        submitBtn.dataset.savedLabel = submitBtn.innerHTML;
+        submitBtn.dataset.savedTarget = "html";
+        submitBtn.textContent = "Sending…";
+      }
+    }
+
+    // Build payload
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((value, key) => {
+      if (key === "_honey") return;
+      payload[key] = value;
+    });
+    if (!payload._subject) {
+      payload._subject = `New ${form.dataset.form || "Form"} Submission — Red Hot Media House`;
+    }
+    if (!payload._source) {
+      payload._source = `${document.title} — ${window.location.pathname}`;
+    }
+    payload._formName = form.dataset.form || "Website Form";
+    payload._submittedAt = new Date().toISOString();
+
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && (data.success === "true" || data.success === true || res.status < 300)) {
+        form.reset();
+        showToast(
+          "success",
+          "Message sent successfully!",
+          "Thanks for reaching out. Our team will respond within 1 business day."
+        );
+      } else {
+        const msg =
+          (data && (data.message || data.error)) ||
+          "Something went wrong on our side. Please try again or email us at info@redhotmediahouse.com";
+        showToast("error", "We couldn't send that.", msg);
+      }
+    } catch (err) {
+      showToast(
+        "error",
+        "Network issue",
+        "Please check your connection and try again, or email info@redhotmediahouse.com"
+      );
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = previousDisabled;
+        submitBtn.classList.remove("is-loading");
+        const saved = submitBtn.dataset.savedLabel;
+        const target = submitBtn.dataset.savedTarget;
+        if (saved != null) {
+          if (target === "span") {
+            const textSpan = submitBtn.querySelector(
+              ".uiverse-submit__text, span:not(.uiverse-submit__icon):not(.uiverse-submit__shine)"
+            );
+            if (textSpan) textSpan.textContent = saved;
+          } else {
+            submitBtn.innerHTML = saved;
+          }
+        }
+        delete submitBtn.dataset.savedLabel;
+        delete submitBtn.dataset.savedTarget;
+      }
+    }
+  });
 
   // Section graphics: inject lightweight premium SVG marks from mini-title keywords.
   const iconSvgs = {
@@ -641,22 +807,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Premium hover interaction: subtle 3D tilt for cards/steps/stats (pointer devices).
   const tiltTargets = document.querySelectorAll(".card, .step, .stat-box, .testimonial-card");
-  tiltTargets.forEach((el) => {
-    el.classList.add("tilt");
-    el.addEventListener("mousemove", (e) => {
-      const r = el.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      const ry = (px - 0.5) * 8;
-      const rx = (0.5 - py) * 6;
-      el.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
-      el.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
+  const allowTilt = typeof window.matchMedia === "function" && window.matchMedia("(pointer: fine)").matches;
+  if (allowTilt) {
+    tiltTargets.forEach((el) => {
+      el.classList.add("tilt");
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const ry = (px - 0.5) * 8;
+        const rx = (0.5 - py) * 6;
+        el.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
+        el.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.setProperty("--rx", `0deg`);
+        el.style.setProperty("--ry", `0deg`);
+      });
     });
-    el.addEventListener("mouseleave", () => {
-      el.style.setProperty("--rx", `0deg`);
-      el.style.setProperty("--ry", `0deg`);
-    });
-  });
+  }
 
   if (hasGSAP) {
     const gsap = window.gsap;
@@ -698,6 +867,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    const mobileNoPan =
+      typeof window.matchMedia === "function" && window.matchMedia("(max-width: 767px)").matches;
+
     sections.forEach((section) => {
       const isCenter = section.classList.contains("align-center");
       const isLeft = section.classList.contains("align-left");
@@ -710,6 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // - center: top -> bottom (y)
       // - left aligned content: right -> left (x+)
       // - right aligned content: left -> right (x-)
+      // Narrow viewports: never pan horizontally — translateX + overflow-x clip cuts off cards.
       const dir = isCenter
         ? { x: 0, y: 22 }
         : isLeft
@@ -717,22 +890,38 @@ document.addEventListener("DOMContentLoaded", () => {
           : isRight
             ? { x: -28, y: 0 }
             : { x: 0, y: 22 };
+      const motionDir = mobileNoPan ? { x: 0, y: dir.y } : dir;
 
       // Premium feel: animate section headings (word-by-word)
       const h2Words = splitWords(section.querySelector("h2"));
-      reveal(section, h2Words, { ...dir, stagger: 0.05, duration: 0.6 });
+      reveal(section, h2Words, { ...motionDir, stagger: 0.05, duration: 0.6 });
 
       // Cards + blocks: follow direction, but slightly softer
       const blocks = section.querySelectorAll(".card, .stat-box, .step, .testimonial-card, .accordion-item");
-      reveal(section, blocks, { x: dir.x ? dir.x * 0.8 : 0, y: dir.y ? dir.y * 0.8 : 18, stagger: 0.08 });
+      reveal(section, blocks, {
+        x: motionDir.x ? motionDir.x * 0.8 : 0,
+        y: motionDir.y ? motionDir.y * 0.8 : 18,
+        stagger: 0.08,
+      });
 
       // Pills/badges: subtle pop-in
       const pills = section.querySelectorAll(".badge, .logo-pill, .mini-title");
-      reveal(section, pills, { x: dir.x ? dir.x * 0.6 : 0, y: dir.y ? 14 : 0, scale: 0.97, stagger: 0.05, duration: 0.5 });
+      reveal(section, pills, {
+        x: motionDir.x ? motionDir.x * 0.6 : 0,
+        y: motionDir.y ? 14 : 0,
+        scale: 0.97,
+        stagger: 0.05,
+        duration: 0.5,
+      });
 
       // Inputs/buttons: match direction for a cohesive entrance
       const fields = section.querySelectorAll("input, textarea, button.btn");
-      reveal(section, fields, { x: dir.x ? dir.x * 0.7 : 0, y: dir.y ? 18 : 0, stagger: 0.06, duration: 0.55 });
+      reveal(section, fields, {
+        x: motionDir.x ? motionDir.x * 0.7 : 0,
+        y: motionDir.y ? 18 : 0,
+        stagger: 0.06,
+        duration: 0.55,
+      });
 
       // Template-specific premium motion (services pages)
       if (isSplit) {
