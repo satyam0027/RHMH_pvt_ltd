@@ -793,6 +793,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const splitWords = (el) => {
     if (!el || el.dataset.split === "true") return [];
+    // Keep manual markup (line breaks, gradient spans, etc.) — word-split would strip it
+    // and only the first token would get .is-highlight.
+    const preserveHeroTitle =
+      el.dataset.noWordSplit === "true" ||
+      (el.tagName === "H1" && el.querySelector("br"));
+    if (preserveHeroTitle) {
+      el.dataset.split = "true";
+      return [el];
+    }
     const words = (el.textContent || "").trim().split(/\s+/).filter(Boolean);
     el.innerHTML = words
       .map((word, idx) => {
@@ -1040,16 +1049,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const track = document.getElementById("logoTrack");
   if (track) {
     const logos = [
-      { name: "Radha Rani Residency Pvt Ltd", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (2).jpeg" },
-      { name: "Property Wale", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (3).jpeg" },
-      { name: "TUK&TUK Kids", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (4).jpeg" },
-      { name: "Malanchi", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (5).jpeg" },
-      { name: "Medini Care", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (6).jpeg" },
-      { name: "mtb Engineers", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (7).jpeg" },
-      { name: "Kashvi Multi Speciality Center", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (8).jpeg" },
-      { name: "Healing Women Clinic", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (9).jpeg" },
-      { name: "Dr. Jyoti Bhaskar — Caring Hands", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (10).jpeg" },
-      { name: "Galleria Clothings", image: "images/WhatsApp Image 2026-05-09 at 1.06.06 PM (11).jpeg" },
+      { name: "Radha Rani Residency Pvt Ltd", image: "images/RadhaRaniResidency.jpeg" },
+      { name: "Property Wale", image: "images/PropertyWalle.jpeg" },
+      { name: "TUK&TUK Kids", image: "images/TukTukKids.jpeg" },
+      { name: "Malanchi", image: "images/Malanchi.jpeg" },
+      { name: "Medini Care", image: "images/MediniCare.jpeg" },
+      { name: "mtb Engineers", image: "images/ImtbEngineers.jpeg" },
+      { name: "Kashvi Multi Speciality Center", image: "images/KashviHospital.jpeg" },
+      { name: "Healing Women Clinic", image: "images/DrNeeluHealingWomen.jpeg" },
+      { name: "Dr. Jyoti Bhaskar — Caring Hands", image: "images/DrJyotiBhaskar.jpeg" },
+      { name: "Galleria Clothings", image: "images/GalleriaClothings.jpeg" },
       { name: "Brandkettle", image: "images/brandkettle.jpg" },
       { name: "Diwan Chand Sahani & Sons LLP", image: "images/Dcs.jpg" },
       { name: "Bansuri Dham Vrindavan Farms", image: "images/vertex-labs.png" },

@@ -562,6 +562,15 @@ p { margin-bottom: 16px; }
 .hero-split .hero-center h1 {
   line-height: 1.12;
 }
+.hero-split .hero-center h1:has(br) {
+  line-height: 1.22;
+}
+/* Gradient span inside hero h1 must stay clipped; parent h1 forces white */
+.hero-split h1 .text-gradient {
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 @media (max-width: 520px) {
   .hero-title-pill {
     margin-bottom: 0.1em;
@@ -826,6 +835,149 @@ main > section.section:not(.hero-split):hover {
 .timeline-item { position: relative; }
 .timeline-item::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: rgba(204, 43, 43, 0.95); position: absolute; left: -24px; top: 7px; }
 .contact-grid { display: grid; gap: 22px; }
+.contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-aside__block .mini-title { margin-bottom: 8px; }
+.contact-aside__block > p { margin: 0; }
+.contact-aside__block > p + p { margin-top: 10px; }
+.contact-aside__sep { opacity: 0.45; padding: 0 0.25em; }
+
+/* About page — leadership / founder cards */
+.about-leadership > .container > .mini-title,
+.about-leadership > .container > h2,
+.about-leadership > .container > .founder-lead {
+  text-align: center;
+}
+.section.about-leadership > .container > h2::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.about-leadership .founder-lead {
+  max-width: 42rem;
+  margin: 0 auto 4px;
+}
+.about-leadership .founder-grid {
+  display: grid;
+  gap: clamp(18px, 3vw, 22px);
+  margin-top: clamp(22px, 4vw, 32px);
+}
+@media (min-width: 768px) {
+  .about-leadership .founder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+.about-leadership .founder-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(18px, 3vw, 26px);
+  align-items: start;
+  padding: clamp(22px, 4vw, 30px);
+  text-align: left;
+}
+@media (max-width: 540px) {
+  .about-leadership .founder-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .about-leadership .founder-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-leadership .founder-card__link {
+    justify-content: center;
+  }
+}
+.about-leadership .founder-avatar {
+  width: clamp(76px, 15vw, 96px);
+  height: clamp(76px, 15vw, 96px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: linear-gradient(145deg, #3d5480 0%, #243552 45%, #141c2e 100%);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 14px 36px rgba(8, 12, 24, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+.about-leadership .founder-avatar--b {
+  background: linear-gradient(145deg, #5c4070 0%, #3d2848 48%, #1f1528 100%);
+}
+.about-leadership .founder-card__role {
+  margin: 0 0 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.5) !important;
+}
+.about-leadership .founder-card__name {
+  margin: 0 0 12px;
+  font-family: "Plus Jakarta Sans", var(--font-body);
+  font-size: clamp(1.32rem, 3vw, 1.62rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: rgba(15, 23, 42, 0.98) !important;
+}
+.about-leadership .founder-card__bio {
+  margin: 0 0 18px;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: rgba(15, 23, 42, 0.74) !important;
+}
+.about-leadership .founder-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 650;
+  color: rgba(15, 23, 42, 0.88) !important;
+  text-decoration: none;
+  border-bottom: 2px solid rgba(204, 43, 43, 0.35);
+  padding-bottom: 3px;
+  transition: color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.about-leadership .founder-card__link:hover {
+  color: #b91c1c !important;
+  border-bottom-color: rgba(185, 28, 28, 0.65);
+}
+.about-leadership .founder-card__link .founder-card__ext {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.about-leadership .founder-team-note {
+  margin-top: clamp(22px, 4vw, 30px);
+  text-align: center;
+  padding: clamp(24px, 4vw, 34px) clamp(20px, 4vw, 28px);
+}
+.about-leadership .founder-team-note__title {
+  margin: 0 0 14px;
+  font-family: "Plus Jakarta Sans", var(--font-body);
+  font-size: clamp(1.12rem, 2.4vw, 1.32rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: rgba(15, 23, 42, 0.98) !important;
+}
+.about-leadership .founder-team-note__text {
+  margin: 0 auto;
+  max-width: 52rem;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(15, 23, 42, 0.72) !important;
+}
+
 form { display: grid; gap: 12px; }
 input, select, textarea { width: 100%; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 12px; padding: 12px 14px; font-family: var(--font-body); background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.92); transition: box-shadow var(--transition), border-color var(--transition), background var(--transition); backdrop-filter: blur(12px); }
 input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.55); }
@@ -1982,6 +2134,13 @@ body {
 .section.cta-band .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.96) !important;
 }
+.section.cta-band .hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
 .section:not(.hero-split) h2 {
   position: relative;
   display: block;
@@ -2609,9 +2768,19 @@ body.mono-theme .testimonial-card { background: var(--surface, #fff); }
   color: #ffffff !important;
 }
 .hero-split .btn-primary {
-  background: #111827 !important;
-  border-color: #111827 !important;
-  color: #ffffff !important;
+  background: linear-gradient(145deg, #2c3f5c 0%, #1a2744 42%, #121a2e 100%) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  color: #f8fafc !important;
+  box-shadow:
+    0 12px 32px rgba(8, 12, 24, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+.hero-split .btn-primary:hover {
+  filter: brightness(1.07);
+  border-color: rgba(255, 255, 255, 0.32) !important;
+  box-shadow:
+    0 16px 42px rgba(8, 12, 24, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
 }
 .hero-split .btn-secondary {
   background: rgba(255, 255, 255, 0.16) !important;
