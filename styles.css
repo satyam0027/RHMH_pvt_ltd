@@ -2420,7 +2420,7 @@ body {
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
-  max-width: 900px;
+  max-width: min(1120px, 100%);
   margin: 0 auto;
 }
 .logo-section .container { text-align: center; }
@@ -2467,33 +2467,34 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 48px;
+  padding: 0 clamp(32px, 4vw, 56px);
   flex-shrink: 0;
 }
 .carousel-item img {
-  height: clamp(40px, 3.5vw, 52px);
+  height: clamp(56px, 8.5vw, 96px);
   width: auto;
-  max-width: min(280px, 38vw);
+  max-width: min(420px, 62vw);
   object-fit: contain;
   display: block;
-  filter: none;
+  filter: drop-shadow(0 2px 6px rgba(15, 23, 42, 0.07));
   opacity: 1;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, filter 0.2s ease;
   backface-visibility: hidden;
   image-rendering: auto;
   -webkit-user-drag: none;
 }
 .carousel-item img:hover {
   opacity: 1;
-  transform: scale(1.03);
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 14px rgba(15, 23, 42, 0.1));
 }
 .fade-left {
-  position: absolute; left: 0; top: 0; bottom: 0; width: 80px;
+  position: absolute; left: 0; top: 0; bottom: 0; width: clamp(64px, 10vw, 100px);
   background: linear-gradient(to right, #fff, transparent);
   pointer-events: none; z-index: 2;
 }
 .fade-right {
-  position: absolute; right: 0; top: 0; bottom: 0; width: 80px;
+  position: absolute; right: 0; top: 0; bottom: 0; width: clamp(64px, 10vw, 100px);
   background: linear-gradient(to left, #fff, transparent);
   pointer-events: none; z-index: 2;
 }
@@ -2587,7 +2588,7 @@ body.mono-theme .testimonial-card { background: var(--surface, #fff); }
   .logo-section { padding: 48px 0; }
   .logo-section .muted { margin-bottom: 28px; }
   .carousel-wrapper { max-width: 100%; padding: 0 12px; }
-  .carousel-item { padding: 0 26px; }
+  .carousel-item { padding: 0 clamp(22px, 6vw, 36px); }
 
   .testimonials-section { padding: 64px 16px; }
   .testimonials-columns-wrapper { gap: 14px; max-height: 620px; }
@@ -4115,6 +4116,13 @@ h3 > .emoji-svg:first-child { margin-right: 0.45em; }
 }
 .site-footer .footer-col a:hover::before {
   width: 10px;
+}
+
+/* Keep support email on one line */
+.site-footer .footer-col a[href^="mailto:"] {
+  white-space: nowrap;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 
 /* Mobile touch-up */
