@@ -798,7 +798,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const preserveHeroTitle =
       el.dataset.noWordSplit === "true" ||
       (el.tagName === "H1" && el.querySelector("br"));
-    if (preserveHeroTitle) {
+    const preserveFaqTitle =
+      el.tagName === "H2" &&
+      (el.closest(".faq-wrap") || /^FAQs\b/i.test((el.textContent || "").trim()));
+    if (preserveHeroTitle || preserveFaqTitle) {
       el.dataset.split = "true";
       return [el];
     }
