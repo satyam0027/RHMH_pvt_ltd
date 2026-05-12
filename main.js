@@ -584,9 +584,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const page = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+  const normalizeNavPath = (raw) => {
+    let s = (raw || "").trim().toLowerCase();
+    if (!s) return "/";
+    if (s.startsWith("http")) {
+      try {
+        s = new URL(s).pathname;
+      } catch {
+        return "/";
+      }
+    }
+    s = s.split(/[?#]/)[0].replace(/\/$/, "");
+    if (s.endsWith(".html")) s = s.slice(0, -5);
+    if (!s.startsWith("/")) s = `/${s}`;
+    if (s === "" || s === "/index") return "/";
+    return s;
+  };
+  const currentNavPath = normalizeNavPath(window.location.pathname);
   document.querySelectorAll("[data-nav]").forEach((link) => {
-    if (link.getAttribute("href")?.toLowerCase() === page) link.classList.add("active");
+    const href = link.getAttribute("href");
+    if (normalizeNavPath(href) === currentNavPath) link.classList.add("active");
   });
 
   // Ensure base content is visible even if cinematic timelines delay.
