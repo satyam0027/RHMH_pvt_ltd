@@ -1,3 +1,15 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/espodcast/:path*",
+      "destination": "https://espodcaststudio.com/podcast/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/espodcast",
+      "destination": "https://espodcaststudio.com/podcast/",
+      "permanent": true
+    }
+  ]
 }
