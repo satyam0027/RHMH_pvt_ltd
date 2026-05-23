@@ -5618,30 +5618,9 @@ button[type="submit"].is-loading::after {
     display: none !important;
   }
 
-  .topbar-right {
-    display: none;
-  }
-
-  .topbar-inner {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 5px 0;
-  }
-
-  .topbar-left {
-    width: 100%;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .topbar-link {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 5px 8px;
-    font-size: 0.7rem;
+  /* Free vertical space — contact is in the menu + bottom bar */
+  .site-header .topbar {
+    display: none !important;
   }
 }
 

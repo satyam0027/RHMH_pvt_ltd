@@ -282,11 +282,11 @@
 @media (max-width: 760px) {
   #homeHero.hero-slider {
     --home-controls-h: 42px;
-    --home-pad-y: clamp(16px, 2.5vh, 24px);
+    --home-pad-y: clamp(12px, 2vh, 18px);
     --home-pad-x: clamp(14px, 4vw, 20px);
     --mobile-sticky-h: calc(58px + env(safe-area-inset-bottom, 0px));
     --home-viewport-h: max(
-      480px,
+      420px,
       calc(100dvh - var(--home-header) - var(--mobile-sticky-h))
     );
     min-height: var(--home-viewport-h);
@@ -299,19 +299,39 @@
     height: 100%;
   }
 
+  /* Top-align slide content — centering was clipping the h1 above the fold */
   #homeHero .hero-slide {
-    overflow-y: auto;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
     overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    scroll-padding-top: 12px;
   }
 
   #homeHero .hero-slide__layout {
     max-width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    min-height: min(100%, auto);
     justify-content: flex-start !important;
     align-items: center !important;
-    padding-top: max(18px, var(--home-pad-y)) !important;
+    overflow: visible !important;
+    padding-top: clamp(10px, 1.5vh, 16px) !important;
+    padding-bottom: calc(var(--home-controls-h) + 14px) !important;
     padding-left: max(var(--home-pad-x), env(safe-area-inset-left, 0px));
     padding-right: max(var(--home-pad-x), env(safe-area-inset-right, 0px));
+  }
+
+  #homeHero .hero-center {
+    justify-content: flex-start !important;
+    width: 100%;
+  }
+
+  #homeHero .hero-label {
+    margin-top: 0 !important;
   }
 
   #homeHero h1 {
@@ -352,16 +372,21 @@
 
   #homeHero .hero-center {
     max-width: 100%;
-    gap: clamp(8px, 1.5vh, 14px);
+    gap: clamp(6px, 1.2vh, 12px);
   }
 
   #homeHero .hero-center .hero-slide__visual {
-    max-width: min(100%, 360px) !important;
+    max-width: min(100%, 300px) !important;
+    margin-top: 4px;
   }
 
   #homeHero .hero-graphic__svg {
-    max-height: clamp(96px, 24vw, 132px) !important;
+    max-height: clamp(72px, 20vw, 100px) !important;
     width: 100%;
+  }
+
+  #homeHero .hero-graphic__chip {
+    display: none;
   }
 
   #homeHero .hero-center .hero-actions {

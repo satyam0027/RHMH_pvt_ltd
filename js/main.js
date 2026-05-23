@@ -1228,8 +1228,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const isActive = i === activeIndex;
         slide.classList.toggle("is-active", isActive);
         slide.setAttribute("aria-hidden", isActive ? "false" : "true");
-        if (isActive) slide.removeAttribute("hidden");
-        else slide.setAttribute("hidden", "");
+        if (isActive) {
+          slide.removeAttribute("hidden");
+          slide.scrollTop = 0;
+        } else {
+          slide.setAttribute("hidden", "");
+          slide.scrollTop = 0;
+        }
       });
       dots.forEach((dot, i) => {
         const isActive = i === activeIndex;
