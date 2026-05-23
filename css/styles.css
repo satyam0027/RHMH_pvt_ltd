@@ -1,4 +1,6 @@
 :root {
+  --site-header-h: 118px;
+  --mobile-sticky-h: 68px;
   /* Makro-like neutral + crisp SaaS palette */
   --bg: #0b0d12;
   --fg: #ffffff;
@@ -5608,11 +5610,38 @@ button[type="submit"].is-loading::after {
 
 @media (max-width: 767px) {
   body {
-    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--mobile-sticky-h) + env(safe-area-inset-bottom, 0px));
   }
+
+  /* Bottom bar already has WhatsApp — avoid triple CTAs */
   .floating-whatsapp {
-    right: max(12px, env(safe-area-inset-right, 0px));
-    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    display: none !important;
+  }
+
+  .topbar-right {
+    display: none;
+  }
+
+  .topbar-inner {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 5px 0;
+  }
+
+  .topbar-left {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .topbar-link {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 5px 8px;
+    font-size: 0.7rem;
   }
 }
 
@@ -5994,7 +6023,6 @@ code {
   isolation: isolate;
 }
 #homeHero.hero-slider {
-  min-height: 0;
   background: transparent;
 }
 .hero-slider__viewport {
@@ -8618,29 +8646,6 @@ code {
 }
 
 @media (max-width: 640px) {
-  /* Topbar — stack so email/phone don't overflow */
-  .topbar-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding: 6px 0;
-  }
-
-  .topbar-left,
-  .topbar-right {
-    width: 100%;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .topbar-link {
-    flex: 1 1 auto;
-    min-width: 0;
-    justify-content: center;
-    padding: 6px 8px;
-    font-size: 0.72rem;
-  }
-
   .topbar-link span:not(.topbar-ico) {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -8649,17 +8654,27 @@ code {
   }
 
   .nav-wrap {
-    min-height: 64px;
+    min-height: 56px;
     padding-block: 4px;
   }
 
   .site-header .btn-primary {
-    padding: 8px 12px !important;
-    font-size: 0.72rem !important;
+    padding: 8px 10px !important;
+    font-size: 0.7rem !important;
   }
 
   .header-actions .btn-primary .btn-icon {
     display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-header .header-actions .btn-primary {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 4px;
   }
 }
 

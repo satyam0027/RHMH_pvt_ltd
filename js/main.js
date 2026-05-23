@@ -34,6 +34,27 @@ document.addEventListener("DOMContentLoaded", () => {
     header.dataset.topbar = "true";
   }
 
+  const syncSiteHeaderHeight = () => {
+    const siteHeader = document.querySelector(".site-header");
+    if (!siteHeader) return;
+    const height = Math.ceil(siteHeader.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--site-header-h", `${height}px`);
+    const homeHero = document.getElementById("homeHero");
+    if (homeHero) homeHero.style.setProperty("--home-header", `${height}px`);
+  };
+
+  syncSiteHeaderHeight();
+  window.addEventListener("load", syncSiteHeaderHeight, { passive: true });
+  window.addEventListener("resize", syncSiteHeaderHeight, { passive: true });
+  window.addEventListener("orientationchange", syncSiteHeaderHeight, { passive: true });
+  if (typeof ResizeObserver !== "undefined") {
+    const siteHeader = document.querySelector(".site-header");
+    if (siteHeader) {
+      const headerObserver = new ResizeObserver(syncSiteHeaderHeight);
+      headerObserver.observe(siteHeader);
+    }
+  }
+
   // Inject chevron arrows next to top-level nav links that have dropdowns.
   document.querySelectorAll(".services-nav-item, .industries-nav-item").forEach((wrap) => {
     const link = wrap.querySelector(":scope > a[data-nav]");
@@ -973,7 +994,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const hero = sections[0];
     if (hero) {
       const heroWords = splitWords(hero.querySelector("h1"));
-      reveal(hero, heroWords, { y: 36, stagger: 0.06, duration: 0.65 });
+      const isHomeHero = hero.id === "homeHero" || hero.classList.contains("hero-slider");
+      if (isHomeHero && heroWords.length) {
+        gsap.from(heroWords, {
+          opacity: 0,
+          y: 36,
+          duration: 0.65,
+          stagger: 0.06,
+          ease: "power3.out",
+          delay: 0.12,
+        });
+      } else {
+        reveal(hero, heroWords, { y: 36, stagger: 0.06, duration: 0.65 });
+      }
       reveal(hero, hero.querySelectorAll(".hero-trust p"), { y: 20, stagger: 0.08, duration: 0.55, delay: 0.1 });
       const heroVideo = hero.querySelector(".hero-video video");
       if (heroVideo) {
@@ -990,6 +1023,8 @@ document.addEventListener("DOMContentLoaded", () => {
       typeof window.matchMedia === "function" && window.matchMedia("(max-width: 767px)").matches;
 
     sections.forEach((section) => {
+      if (section.id === "homeHero" || section.classList.contains("hero-slider")) return;
+
       const isCenter = section.classList.contains("align-center");
       const isLeft = section.classList.contains("align-left");
       const isRight = section.classList.contains("align-right");
@@ -1069,7 +1104,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   } else {
     // IntersectionObserver fallback (when GSAP unavailable)
-    sections.forEach((section) => section.classList.add("section-hidden"));
+    sections.forEach((section) => {
+      if (section.id === "homeHero" || section.classList.contains("hero-slider")) {
+        section.classList.remove("section-hidden");
+        section.classList.add("section-visible");
+        return;
+      }
+      section.classList.add("section-hidden");
+    });
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
