@@ -8402,6 +8402,29 @@ code {
 
 /* #homeHero layout → see css/home-hero.css (loaded after this file) */
 
+/* GTM noscript iframe + homepage utilities (no inline styles) */
+.gtm-noscript-iframe {
+  display: none;
+  visibility: hidden;
+  border: 0;
+}
+.industries-band__cta {
+  margin-top: 28px;
+  text-align: center;
+}
+.podcast-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.card__service-icon {
+  margin-bottom: 10px;
+}
+.muted--spaced-top {
+  margin-top: 16px;
+}
+
 /* =================================================================== */
 /* MOBILE RESPONSIVENESS — homepage + site-wide touch-ups               */
 /* =================================================================== */
@@ -8670,7 +8693,7 @@ code {
 }
 
 @media (max-width: 767px) {
-  main .section.light-section.industries-band .container > p[style],
+  main .section.light-section.industries-band .industries-band__cta,
   main .section.light-section.industries-band .container > p {
     display: flex;
     justify-content: center;
