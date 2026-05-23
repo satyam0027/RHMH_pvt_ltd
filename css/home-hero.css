@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Homepage hero (#homeHero) — compact content, even padding, no black footer bar
+   Loaded after styles.css
+   ========================================================================== */
+
+#homeHero.hero-slider {
+  --home-header: 118px;
+  --home-controls-h: 44px;
+  --home-pad-y: clamp(36px, 5vh, 52px);
+  --home-pad-x: clamp(18px, 4vw, 30px);
+  --home-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
+  --home-grain-fine: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.5'/%3E%3C/svg%3E");
+  position: relative;
+  width: 100%;
+  height: calc(100svh - var(--home-header));
+  min-height: 540px;
+  max-height: 920px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: transparent !important;
+  isolation: isolate;
+}
+
+#homeHero.hero-slider::before,
+#homeHero.hero-slider::after {
+  display: none !important;
+  content: none !important;
+}
+
+#homeHero .hero-slider__viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0 !important;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+/* Slides + backgrounds cover the full hero (no separate black strip) */
+#homeHero .hero-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#homeHero .hero-slide.is-active {
+  z-index: 2;
+}
+
+#homeHero .hero-slide__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Film grain — visible premium texture over gradients */
+#homeHero .hero-slide__bg-grain {
+  z-index: 5;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: var(--home-grain);
+  background-size: 160px 160px;
+  background-repeat: repeat;
+}
+
+#homeHero .hero-slide__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: soft-light;
+  background-image: var(--home-grain-fine);
+  background-size: 120px 120px;
+  background-repeat: repeat;
+}
+
+/* Grain across full hero (including control strip) */
+#homeHero .hero-slider__viewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  background-image: var(--home-grain);
+  background-size: 170px 170px;
+  background-repeat: repeat;
+}
+
+/* Compact content block — fits between top/bottom padding */
+#homeHero .hero-slide__layout {
+  position: relative;
+  z-index: 2;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center;
+  width: 100%;
+  max-width: 960px;
+  height: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  padding:
+    var(--home-pad-y)
+    var(--home-pad-x)
+    calc(var(--home-pad-y) + var(--home-controls-h)) !important;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#homeHero .hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.8vh, 18px);
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#homeHero .hero-center::before {
+  width: min(560px, 92vw);
+  height: min(340px, 55vh);
+}
+
+#homeHero .hero-label {
+  font-size: 0.76rem !important;
+  margin: 0 !important;
+  padding: 6px 14px !important;
+}
+
+#homeHero h1 {
+  font-size: clamp(1.85rem, 4.2vw, 3.15rem) !important;
+  line-height: 1.12 !important;
+  margin: 0 !important;
+  letter-spacing: -0.02em;
+}
+
+/* Pill highlights — must win over .hero-word.is-highlight reset in styles.css */
+#homeHero .hero-highlight {
+  display: inline-block !important;
+  padding: 0.05em 0.48em 0.1em !important;
+  margin: 0 0.04em !important;
+  border-radius: 0.32em !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: linear-gradient(125deg, #ea580c 0%, #ff4d4d 45%, #ff8a3d 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow:
+    0 6px 28px rgba(255, 77, 77, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  text-decoration: none !important;
+  vertical-align: baseline;
+}
+
+#homeHero .hero-slide--authority .hero-highlight {
+  background: linear-gradient(125deg, #db2777 0%, #9333ea 50%, #4f46e5 100%) !important;
+  box-shadow:
+    0 6px 28px rgba(147, 51, 234, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+#homeHero .hero-slide--digital .hero-highlight {
+  background: linear-gradient(125deg, #0891b2 0%, #22c55e 42%, #7b61ff 100%) !important;
+  box-shadow:
+    0 6px 28px rgba(18, 194, 233, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+#homeHero p.muted {
+  font-size: clamp(0.92rem, 1.35vw, 1.06rem) !important;
+  line-height: 1.55 !important;
+  margin: 0 !important;
+  max-width: 38rem !important;
+}
+
+#homeHero .hero-meta {
+  gap: 8px 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#homeHero .hero-meta li {
+  font-size: 0.72rem !important;
+  padding: 5px 11px !important;
+}
+
+#homeHero .hero-center .hero-slide__visual {
+  display: flex !important;
+  margin: clamp(4px, 1vh, 10px) auto !important;
+  max-width: min(480px, 92vw) !important;
+}
+
+#homeHero .hero-graphic {
+  max-width: 480px;
+}
+
+#homeHero .hero-graphic__svg {
+  max-height: clamp(120px, 18vw, 175px) !important;
+}
+
+#homeHero .hero-graphic__chip {
+  display: none;
+}
+
+#homeHero .hero-center .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: clamp(4px, 1vh, 10px) 0 0 !important;
+  padding: 0;
+}
+
+#homeHero .hero-center .hero-actions .btn {
+  padding: 12px 20px !important;
+  font-size: 0.92rem !important;
+  min-height: 0;
+}
+
+/* Carousel controls — overlay bottom of hero, fully transparent (no black box) */
+#homeHero .hero-slider__viewport > .hero-slider__controls {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  height: var(--home-controls-h);
+  margin: 0 !important;
+  padding: 0 var(--home-pad-x) 6px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 25;
+  pointer-events: none;
+}
+
+#homeHero .hero-slider__controls .hero-slider__nav {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+}
+
+#homeHero .hero-slider__controls .hero-slider__nav,
+#homeHero .hero-slider__controls .hero-slider__dot {
+  pointer-events: auto;
+}
+
+#homeHero .hero-slider__dot {
+  width: 28px;
+  height: 6px;
+}
+
+/* Next section — light only (removes dark “black rectangle” below hero) */
+#homeHero + .section.results-first,
+#homeHero + .section {
+  margin-top: 0 !important;
+  padding-top: clamp(56px, 6vw, 80px) !important;
+  background: #f7f8fc !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  #homeHero.hero-slider {
+    --home-header: 108px;
+    --home-controls-h: 42px;
+    --home-pad-y: clamp(24px, 4vh, 36px);
+    min-height: 480px;
+    max-height: none;
+    height: calc(100svh - var(--home-header));
+  }
+
+  #homeHero .hero-slide {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #homeHero h1 {
+    font-size: clamp(1.65rem, 6.8vw, 2.15rem) !important;
+  }
+
+  #homeHero .hero-graphic__svg {
+    max-height: clamp(108px, 26vw, 148px) !important;
+  }
+
+  #homeHero .hero-center .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  #homeHero .hero-center .hero-actions .btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+@media (max-height: 700px) {
+  #homeHero.hero-slider {
+    --home-pad-y: clamp(20px, 3vh, 32px);
+  }
+
+  #homeHero .hero-graphic__svg {
+    max-height: 110px !important;
+  }
+
+  #homeHero .hero-center {
+    gap: 10px;
+  }
+}

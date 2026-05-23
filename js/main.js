@@ -366,6 +366,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // (border + pattern) without changing any HTML across pages.
   const SECTION_PATTERNS = ["section-head--p1", "section-head--p2", "section-head--p3", "section-head--p4"];
   let __secHeadIdx = 0;
+  const wrapSectionHead = (host, h2) => {
+    if (!host || !h2 || host.dataset.headWrapped === "true") return;
+    const miniDirect = host.querySelector(":scope > .mini-title");
+    let firstP = h2.nextElementSibling;
+    while (firstP && !(firstP.tagName === "P")) firstP = firstP.nextElementSibling;
+
+    const head = document.createElement("div");
+    head.className = "section-head " + SECTION_PATTERNS[__secHeadIdx % SECTION_PATTERNS.length];
+    __secHeadIdx += 1;
+    if (miniDirect && miniDirect.parentElement === host) head.appendChild(miniDirect);
+    head.appendChild(h2);
+    if (firstP && firstP.parentElement === host) head.appendChild(firstP);
+    host.prepend(head);
+    host.dataset.headWrapped = "true";
+  };
+
   document.querySelectorAll("main > section.section").forEach((sec) => {
     if (sec.classList.contains("hero") || sec.classList.contains("hero-split")) return;
     if (sec.classList.contains("cta-band")) return;
@@ -375,18 +391,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!container) return;
     const h2 = container.querySelector(":scope > h2");
     if (!h2) return;
-    const mini = container.querySelector(":scope > .mini-title");
-    let firstP = h2.nextElementSibling;
-    while (firstP && !(firstP.tagName === "P")) firstP = firstP.nextElementSibling;
-
-    const head = document.createElement("div");
-    head.className = "section-head " + SECTION_PATTERNS[__secHeadIdx % SECTION_PATTERNS.length];
-    __secHeadIdx += 1;
-    if (mini && mini.parentElement === container) head.appendChild(mini);
-    head.appendChild(h2);
-    if (firstP && firstP.parentElement === container) head.appendChild(firstP);
-    container.prepend(head);
+    wrapSectionHead(container, h2);
     sec.dataset.headWrapped = "true";
+  });
+
+  document.querySelectorAll(".podcast-band__copy, .final-cta__inner").forEach((host) => {
+    if (host.dataset.headWrapped === "true") return;
+    const h2 = host.querySelector(":scope > h2");
+    if (!h2) return;
+    wrapSectionHead(host, h2);
   });
 
   // ----------------------------------------------------------------
@@ -814,11 +827,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // and only the first token would get .is-highlight.
     const preserveHeroTitle =
       el.dataset.noWordSplit === "true" ||
-      (el.tagName === "H1" && el.querySelector("br"));
+      (el.tagName === "H1" &&
+        (el.querySelector("br") ||
+          el.querySelector(".hero-highlight, .text-gradient")));
     const preserveFaqTitle =
       el.tagName === "H2" &&
       (el.closest(".faq-wrap") || /^FAQs\b/i.test((el.textContent || "").trim()));
-    if (preserveHeroTitle || preserveFaqTitle) {
+    const preserveLeadStripTitle =
+      el.tagName === "H2" && el.closest(".lead-strip");
+    if (preserveHeroTitle || preserveFaqTitle || preserveLeadStripTitle) {
       el.dataset.split = "true";
       return [el];
     }
@@ -994,9 +1011,11 @@ document.addEventListener("DOMContentLoaded", () => {
             : { x: 0, y: 22 };
       const motionDir = mobileNoPan ? { x: 0, y: dir.y } : dir;
 
-      // Premium feel: animate section headings (word-by-word)
-      const h2Words = splitWords(section.querySelector("h2"));
-      reveal(section, h2Words, { ...motionDir, stagger: 0.05, duration: 0.6 });
+      // Premium feel: animate section headings (word-by-word); skip dark lead-strip
+      if (!section.classList.contains("lead-strip")) {
+        const h2Words = splitWords(section.querySelector("h2"));
+        reveal(section, h2Words, { ...motionDir, stagger: 0.05, duration: 0.6 });
+      }
 
       // Cards + blocks: follow direction, but slightly softer
       const blocks = section.querySelectorAll(".card, .stat-box, .step, .testimonial-card, .accordion-item");
@@ -1145,5 +1164,86 @@ document.addEventListener("DOMContentLoaded", () => {
     track.addEventListener("mouseenter", () => (paused = true));
     track.addEventListener("mouseleave", () => (paused = false));
     requestAnimationFrame(animate);
+  }
+
+  // ------------------------------------------------------------
+  // Homepage hero slider (3 slides)
+  // ------------------------------------------------------------
+  const homeHero = document.querySelector(".hero-slider");
+  if (homeHero) {
+    const slides = [...homeHero.querySelectorAll(".hero-slide")];
+    const dots = [...homeHero.querySelectorAll(".hero-slider__dot")];
+    const prevBtn = homeHero.querySelector(".hero-slider__nav--prev");
+    const nextBtn = homeHero.querySelector(".hero-slider__nav--next");
+    let activeIndex = slides.findIndex((s) => s.classList.contains("is-active"));
+    if (activeIndex < 0) activeIndex = 0;
+    let autoplayTimer = null;
+    const slideDelay = 8000;
+
+    const setSlide = (nextIndex) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        const isActive = i === activeIndex;
+        slide.classList.toggle("is-active", isActive);
+        slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+        if (isActive) slide.removeAttribute("hidden");
+        else slide.setAttribute("hidden", "");
+      });
+      dots.forEach((dot, i) => {
+        const isActive = i === activeIndex;
+        dot.classList.toggle("is-active", isActive);
+        dot.setAttribute("aria-selected", isActive ? "true" : "false");
+        dot.setAttribute("tabindex", isActive ? "0" : "-1");
+      });
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (prefersReducedMotion || slides.length < 2) return;
+      autoplayTimer = setInterval(() => setSlide(activeIndex + 1), slideDelay);
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      setSlide(activeIndex - 1);
+      startAutoplay();
+    });
+    nextBtn?.addEventListener("click", () => {
+      setSlide(activeIndex + 1);
+      startAutoplay();
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        setSlide(i);
+        startAutoplay();
+      });
+    });
+
+    homeHero.addEventListener("mouseenter", stopAutoplay);
+    homeHero.addEventListener("mouseleave", startAutoplay);
+    homeHero.addEventListener("focusin", stopAutoplay);
+    homeHero.addEventListener("focusout", (e) => {
+      if (!homeHero.contains(e.relatedTarget)) startAutoplay();
+    });
+
+    homeHero.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setSlide(activeIndex - 1);
+        startAutoplay();
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setSlide(activeIndex + 1);
+        startAutoplay();
+      }
+    });
+
+    setSlide(activeIndex);
+    startAutoplay();
   }
 });

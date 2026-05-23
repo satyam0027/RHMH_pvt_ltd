@@ -79,10 +79,6 @@
                                       [
                                           "/textile-marketing",
                                           "./textile-marketing"
-                                      ],
-                                      [
-                                          "/trading-marketing",
-                                          "./trading-marketing"
                                       ]
                                   ]
 }
