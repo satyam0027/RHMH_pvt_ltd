@@ -1247,3 +1247,4 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoplay();
   }
 });
+

@@ -83,7 +83,8 @@ ul { list-style: none; }
   width: min(1120px, 100%);
   max-width: 100%;
   margin: 0 auto;
-  padding-inline: clamp(14px, 4vw, 24px);
+  padding-left: max(clamp(14px, 4vw, 24px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(14px, 4vw, 24px), env(safe-area-inset-right, 0px));
 }
 .section { padding: clamp(48px, 8vw, 72px) 0; position: relative; }
 
@@ -5809,6 +5810,9 @@ code {
   main .insight-grid,
   main .podcast-grid,
   main .events-grid,
+  main .results-grid,
+  main .why-grid,
+  main .systems-grid,
   .tmpl-bento .cards-grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
@@ -8384,8 +8388,292 @@ code {
 }
 @media (max-width: 760px) {
   .hero-slider .hero-highlight {
-    padding: 0.04em 0.36em 0.08em;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0.35em auto 0;
+    padding: 0.22em 0.55em 0.28em;
+    line-height: 1.25;
+    text-align: center;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 }
 
 /* #homeHero layout → see css/home-hero.css (loaded after this file) */
+
+/* =================================================================== */
+/* MOBILE RESPONSIVENESS — homepage + site-wide touch-ups               */
+/* =================================================================== */
+
+@media (max-width: 767px) {
+  /* Homepage grids — always single column on phones */
+  .results-first .results-grid,
+  .why-choose .why-grid,
+  .growth-systems .systems-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: clamp(16px, 4vw, 22px) !important;
+  }
+
+  .industry-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* Section-head boxes — fit narrow screens */
+  .section-head {
+    padding: 16px 14px !important;
+    border-radius: 16px !important;
+    max-width: 100% !important;
+    margin-inline: 0 !important;
+  }
+
+  .section.results-first .section-head,
+  .section.why-choose .section-head,
+  .section.industries-band .section-head,
+  .section.growth-systems .section-head,
+  .section.final-cta .section-head {
+    max-width: 100% !important;
+  }
+
+  /* Result cards — keep metric rows readable (override main { text-align: center }) */
+  .result-card {
+    text-align: left !important;
+    padding: clamp(20px, 4vw, 26px) !important;
+  }
+
+  .result-card__head {
+    align-items: flex-start !important;
+  }
+
+  .result-card__metrics li {
+    grid-template-columns: minmax(3.5rem, auto) minmax(0, 1fr);
+    column-gap: 12px;
+    min-height: 2.5rem;
+    padding: 8px 0 !important;
+  }
+
+  .result-card__num {
+    font-size: clamp(1.25rem, 5.5vw, 1.55rem) !important;
+    white-space: nowrap;
+  }
+
+  .result-card__label {
+    font-size: 0.86rem !important;
+    text-align: right !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .result-card__cta {
+    align-self: flex-start !important;
+    margin-left: 0 !important;
+    max-width: 100%;
+  }
+
+  /* Why / system cards */
+  .why-card,
+  .system-card {
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+
+  .why-card h3,
+  .why-card p,
+  .system-card h3,
+  .system-card p {
+    text-align: left !important;
+  }
+
+  .why-card__icon,
+  .system-card__num {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  /* Industry buttons — horizontal row, no overflow */
+  .industry-btn {
+    text-align: left !important;
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 14px !important;
+  }
+
+  .industry-btn__body {
+    text-align: left !important;
+  }
+
+  .industry-btn__label,
+  .industry-btn__sub {
+    text-align: left !important;
+    overflow-wrap: anywhere;
+  }
+
+  .industries-band .industry-btn .industry-btn__arrow {
+    flex-shrink: 0;
+  }
+
+  /* Podcast band — stack, no horizontal bleed from rotated cards */
+  .podcast-band {
+    overflow-x: clip;
+  }
+
+  .podcast-band__inner {
+    grid-template-columns: 1fr !important;
+    gap: clamp(24px, 6vw, 40px) !important;
+  }
+
+  .podcast-band__copy {
+    padding-right: 0 !important;
+    text-align: center !important;
+  }
+
+  .podcast-band__visual {
+    min-height: 0 !important;
+    padding-left: 0 !important;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .podcast-card--main {
+    grid-template-columns: 72px 1fr !important;
+    gap: 12px !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .podcast-card--alt,
+  .podcast-card--alt2 {
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 12px !important;
+  }
+
+  .podcast-card__thumb {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .podcast-band__points {
+    grid-template-columns: 1fr !important;
+    text-align: left !important;
+    justify-items: start;
+  }
+
+  .podcast-band__copy .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  /* Final CTA */
+  .final-cta__inner {
+    padding-inline: clamp(14px, 4vw, 20px) !important;
+  }
+
+  .final-cta__actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100%;
+  }
+
+  .final-cta__actions .btn {
+    width: 100% !important;
+    max-width: none !important;
+    justify-content: center !important;
+  }
+
+  /* Industries CTA row */
+  .industries-band .container > p[style] .btn,
+  .industries-band .container > p .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Topbar — stack so email/phone don't overflow */
+  .topbar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .topbar-link {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 0.72rem;
+  }
+
+  .topbar-link span:not(.topbar-ico) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .nav-wrap {
+    min-height: 64px;
+    padding-block: 4px;
+  }
+
+  .site-header .btn-primary {
+    padding: 8px 12px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .header-actions .btn-primary .btn-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .result-card__metrics li {
+    grid-template-columns: minmax(3rem, auto) minmax(0, 1fr);
+    column-gap: 10px;
+  }
+
+  .result-card__label {
+    font-size: 0.8rem !important;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.35rem, 6.5vw, 1.75rem) !important;
+  }
+
+  .podcast-card--main {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+
+  .podcast-card--main .podcast-card__thumb {
+    margin: 0 auto;
+  }
+
+  .podcast-card__title,
+  .podcast-card__sub {
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  main .section.light-section.industries-band .container > p[style],
+  main .section.light-section.industries-band .container > p {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px !important;
+  }
+}
