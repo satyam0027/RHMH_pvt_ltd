@@ -416,8 +416,9 @@ document.addEventListener("DOMContentLoaded", () => {
     sec.dataset.headWrapped = "true";
   });
 
-  document.querySelectorAll(".podcast-band__copy, .final-cta__inner").forEach((host) => {
+  document.querySelectorAll(".authority-band__head, .podcast-band__copy, .final-cta__inner").forEach((host) => {
     if (host.dataset.headWrapped === "true") return;
+    if (host.classList.contains("podcast-band__copy") && host.closest(".dark-section.podcast-band")) return;
     const h2 = host.querySelector(":scope > h2");
     if (!h2) return;
     wrapSectionHead(host, h2);
@@ -860,6 +861,50 @@ document.addEventListener("DOMContentLoaded", () => {
       el.dataset.split = "true";
       return [el];
     }
+
+    const wrapTextNode = (node, extraClass = "") => {
+      const collected = [];
+      const text = node.textContent || "";
+      if (!text.trim()) {
+        node.remove();
+        return collected;
+      }
+      const frag = document.createDocumentFragment();
+      text.trim().split(/\s+/).filter(Boolean).forEach((word, idx) => {
+        if (idx) frag.appendChild(document.createTextNode(" "));
+        const span = document.createElement("span");
+        span.className = `word hero-word${idx === 0 && !extraClass ? " is-highlight" : ""}${extraClass ? ` ${extraClass}` : ""}`;
+        span.textContent = word;
+        frag.appendChild(span);
+        collected.push(span);
+      });
+      node.replaceWith(frag);
+      return collected;
+    };
+
+    if (el.querySelector(".text-gradient, .hero-highlight")) {
+      const collected = [];
+      const walk = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          collected.push(...wrapTextNode(node));
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.matches(".text-gradient, .hero-highlight")) {
+            const highlightClass = node.classList.contains("text-gradient") ? "text-gradient" : "hero-highlight";
+            const words = (node.textContent || "").trim().split(/\s+/).filter(Boolean);
+            node.innerHTML = words
+              .map((word) => `<span class="word hero-word ${highlightClass}">${word}</span>`)
+              .join(" ");
+            collected.push(...node.querySelectorAll(".word"));
+          } else {
+            Array.from(node.childNodes).forEach(walk);
+          }
+        }
+      };
+      Array.from(el.childNodes).forEach(walk);
+      el.dataset.split = "true";
+      return collected;
+    }
+
     const words = (el.textContent || "").trim().split(/\s+/).filter(Boolean);
     el.innerHTML = words
       .map((word, idx) => {
@@ -870,6 +915,21 @@ document.addEventListener("DOMContentLoaded", () => {
     el.dataset.split = "true";
     return Array.from(el.querySelectorAll(".word"));
   };
+
+  const getSectionHeadingEl = (section) =>
+    section.querySelector(
+      ".section-head h2, .authority-band__head h2, .podcast-band__copy h2, .final-cta__inner h2, .container > h2"
+    );
+
+  const getSectionIntroEl = (section) =>
+    section.querySelector(
+      ".section-head > p, .authority-band__head > p.muted, .podcast-band__copy > p.muted, .final-cta__inner > p.muted, .container > p.muted"
+    );
+
+  const getSectionMiniTitleEl = (section) =>
+    section.querySelector(
+      ".section-head .mini-title, .authority-band__head .mini-title, .podcast-band__copy .mini-title, .final-cta__inner .mini-title, .container > .mini-title"
+    );
 
   const animateCounter = (el) => {
     if (!el || el.dataset.counted === "true") return;
@@ -908,18 +968,27 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const sections = Array.from(document.querySelectorAll("main > section"));
+  const isHomePage = Boolean(document.getElementById("homeHero"));
 
   // Alternate section header alignment (left / right / center)
-  // Only affects the header elements (mini-title, h2, muted intro),
-  // not grids/cards/forms.
+  // Homepage: always center headers; alternate word-slide direction per section.
   const alignCycle = ["align-left", "align-right", "align-center"];
   let alignIdx = 0;
+  let homeSectionIdx = 0;
   sections.forEach((section) => {
-    // Skip hero + special full-bleed sections
     if (section.classList.contains("hero-split")) return;
     if (section.classList.contains("lead-strip")) return;
+    if (section.id === "homeHero" || section.classList.contains("hero-slider")) return;
 
-    section.classList.remove("align-left", "align-right", "align-center");
+    section.classList.remove("align-left", "align-right", "align-center", "home-section");
+    delete section.dataset.wordFrom;
+
+    if (isHomePage) {
+      section.classList.add("align-center", "home-section");
+      section.dataset.wordFrom = homeSectionIdx % 2 === 0 ? "left" : "right";
+      homeSectionIdx += 1;
+      return;
+    }
 
     // Force certain sections to always be center-aligned regardless of cycle.
     if (
@@ -1022,9 +1091,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const mobileNoPan =
       typeof window.matchMedia === "function" && window.matchMedia("(max-width: 767px)").matches;
 
+    const getHomeWordMotion = (section) => {
+      const fromLeft = section.dataset.wordFrom === "left";
+      if (mobileNoPan) return { x: 0, y: 24 };
+      return { x: fromLeft ? -56 : 56, y: 0 };
+    };
+
     sections.forEach((section) => {
       if (section.id === "homeHero" || section.classList.contains("hero-slider")) return;
 
+      const isHomeSection = isHomePage && section.classList.contains("home-section");
       const isCenter = section.classList.contains("align-center");
       const isLeft = section.classList.contains("align-left");
       const isRight = section.classList.contains("align-right");
@@ -1033,23 +1109,48 @@ document.addEventListener("DOMContentLoaded", () => {
       const isProof = section.classList.contains("tmpl-proof");
 
       // Direction rules:
+      // - homepage sections: alternate left→right / right→left word slides
       // - center: top -> bottom (y)
       // - left aligned content: right -> left (x+)
       // - right aligned content: left -> right (x-)
-      // Narrow viewports: never pan horizontally — translateX + overflow-x clip cuts off cards.
-      const dir = isCenter
-        ? { x: 0, y: 22 }
-        : isLeft
-          ? { x: 28, y: 0 }
-          : isRight
-            ? { x: -28, y: 0 }
-            : { x: 0, y: 22 };
-      const motionDir = mobileNoPan ? { x: 0, y: dir.y } : dir;
+      const dir = isHomeSection
+        ? getHomeWordMotion(section)
+        : isCenter
+          ? { x: 0, y: 22 }
+          : isLeft
+            ? { x: 28, y: 0 }
+            : isRight
+              ? { x: -28, y: 0 }
+              : { x: 0, y: 22 };
+      const motionDir = isHomeSection ? dir : mobileNoPan ? { x: 0, y: dir.y } : dir;
 
       // Premium feel: animate section headings (word-by-word); skip dark lead-strip
       if (!section.classList.contains("lead-strip")) {
-        const h2Words = splitWords(section.querySelector("h2"));
-        reveal(section, h2Words, { ...motionDir, stagger: 0.05, duration: 0.6 });
+        const miniTitle = getSectionMiniTitleEl(section);
+        const heading = getSectionHeadingEl(section);
+        const intro = getSectionIntroEl(section);
+
+        if (isHomeSection && miniTitle) {
+          reveal(section, miniTitle, {
+            ...motionDir,
+            x: motionDir.x ? motionDir.x * 0.65 : 0,
+            y: motionDir.y || 16,
+            duration: 0.5,
+          });
+        }
+
+        const h2Words = splitWords(heading);
+        reveal(section, h2Words, { ...motionDir, stagger: 0.045, duration: 0.55 });
+
+        if (isHomeSection && intro) {
+          const introWords = splitWords(intro);
+          reveal(section, introWords, {
+            ...motionDir,
+            stagger: 0.022,
+            duration: 0.48,
+            delay: 0.12,
+          });
+        }
       }
 
       // Cards + blocks: follow direction, but slightly softer
@@ -1111,6 +1212,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       section.classList.add("section-hidden");
+
+      if (isHomePage && section.classList.contains("home-section")) {
+        splitWords(getSectionHeadingEl(section));
+        const intro = getSectionIntroEl(section);
+        if (intro) splitWords(intro);
+      }
     });
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1222,6 +1329,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let autoplayTimer = null;
     const slideDelay = 8000;
 
+    const controls = homeHero.querySelector(".hero-slider__controls");
+
+    const placeControls = () => {
+      if (!controls) return;
+      const center = slides[activeIndex]?.querySelector(".hero-center");
+      if (!center) return;
+      center.appendChild(controls);
+    };
+
     const setSlide = (nextIndex) => {
       activeIndex = (nextIndex + slides.length) % slides.length;
       slides.forEach((slide, i) => {
@@ -1242,6 +1358,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dot.setAttribute("aria-selected", isActive ? "true" : "false");
         dot.setAttribute("tabindex", isActive ? "0" : "-1");
       });
+      placeControls();
     };
 
     const stopAutoplay = () => {

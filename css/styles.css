@@ -6001,9 +6001,6 @@ code {
   color: #fff;
   isolation: isolate;
 }
-#homeHero.hero-slider {
-  background: transparent;
-}
 .hero-slider__viewport {
   position: relative;
   width: 100%;
@@ -6395,11 +6392,11 @@ code {
   align-items: center;
 }
 @media (min-width: 960px) { .podcast-band__inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
-.podcast-band__copy h2 { color: rgba(15, 23, 42, 0.95); }
-.podcast-band__copy .muted { color: rgba(15, 23, 42, 0.68) !important; }
+.section.light-section.podcast-band .podcast-band__copy h2 { color: rgba(15, 23, 42, 0.95); }
+.section.light-section.podcast-band .podcast-band__copy .muted { color: rgba(15, 23, 42, 0.68) !important; }
 .podcast-band__points { list-style: none; padding: 0; margin: 12px 0 18px; display: grid; grid-template-columns: 1fr; gap: 10px; }
 @media (min-width: 540px) { .podcast-band__points { grid-template-columns: repeat(2, 1fr); } }
-.podcast-band__points li {
+.section.light-section.podcast-band .podcast-band__points li {
   position: relative;
   padding-left: 26px;
   color: rgba(15, 23, 42, 0.82);
@@ -7169,9 +7166,9 @@ code {
    PODCAST BAND — light theme
    ================================================================ */
 .podcast-band { padding-block: clamp(88px, 11vw, 140px); }
-.podcast-band__copy h2 { color: rgba(15, 23, 42, 0.95) !important; }
-.podcast-band__copy h2::after { left: 0 !important; transform: none !important; }
-.podcast-band__points li { color: rgba(15, 23, 42, 0.82) !important; }
+.section.light-section.podcast-band .podcast-band__copy h2 { color: rgba(15, 23, 42, 0.95) !important; }
+.section.light-section.podcast-band .podcast-band__copy h2::after { left: 0 !important; transform: none !important; }
+.section.light-section.podcast-band .podcast-band__points li { color: rgba(15, 23, 42, 0.82) !important; }
 .podcast-band__visual { min-height: 380px; }
 .podcast-card {
   background: #ffffff !important;
@@ -8055,9 +8052,6 @@ code {
   background: #080b14;
   color: #fff;
   isolation: isolate;
-}
-#homeHero.hero-slider {
-  background: transparent;
 }
 .hero-slider .hero-slide {
   position: absolute;
