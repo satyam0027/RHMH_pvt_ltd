@@ -5,21 +5,44 @@
 
 #homeHero.hero-slider {
   --home-header: var(--site-header-h, 118px);
-  --home-controls-h: 44px;
+  --home-controls-strip: clamp(52px, 7vh, 68px);
   --home-pad-y: clamp(36px, 5vh, 52px);
   --home-pad-x: clamp(18px, 4vw, 30px);
   --home-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
   --home-grain-fine: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.5'/%3E%3C/svg%3E");
   position: relative;
   width: 100%;
-  height: calc(100svh - var(--home-header));
-  min-height: 540px;
-  max-height: 920px;
+  height: auto;
+  min-height: 0;
+  max-height: none;
   padding: 0;
   margin: 0;
   overflow: hidden;
-  background: transparent !important;
+  background: #080b14 !important;
+  color: #fff;
   isolation: isolate;
+}
+
+/* Match active slide theme on hero shell so controls strip never shows light page bg */
+#homeHero.hero-slider:has(.hero-slide--performance.is-active) {
+  background:
+    radial-gradient(80% 80% at 20% 0%, #1a0b1b 0%, transparent 65%),
+    radial-gradient(80% 80% at 100% 100%, #1a0608 0%, transparent 60%),
+    linear-gradient(160deg, #0a0d1a 0%, #100a15 100%) !important;
+}
+
+#homeHero.hero-slider:has(.hero-slide--authority.is-active) {
+  background:
+    radial-gradient(80% 80% at 10% 100%, #160b2a 0%, transparent 65%),
+    radial-gradient(80% 80% at 100% 0%, #0b1830 0%, transparent 60%),
+    linear-gradient(160deg, #080a18 0%, #110a1d 100%) !important;
+}
+
+#homeHero.hero-slider:has(.hero-slide--digital.is-active) {
+  background:
+    radial-gradient(80% 80% at 0% 0%, #061a1f 0%, transparent 65%),
+    radial-gradient(80% 80% at 100% 100%, #0b1830 0%, transparent 60%),
+    linear-gradient(160deg, #050d18 0%, #0a1422 100%) !important;
 }
 
 #homeHero.hero-slider::before,
@@ -30,25 +53,47 @@
 
 #homeHero .hero-slider__viewport {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100%;
-  min-height: inherit;
+  height: auto;
+  min-height: 0;
   overflow: hidden;
-  background: transparent !important;
+  background: inherit !important;
 }
 
-/* Slides + backgrounds cover the full hero (no separate black strip) */
+/* Active slide in flow; inactive hidden — keeps CTAs clear of carousel chrome */
 #homeHero .hero-slide {
-  position: absolute;
-  inset: 0;
-  display: flex;
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  display: none;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 #homeHero .hero-slide.is-active {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
   z-index: 2;
+  min-height: max(420px, calc(100svh - var(--home-header) - var(--home-controls-strip)));
+}
+
+/* Gradient continues behind in-flow carousel controls (outside slide DOM) */
+#homeHero .hero-slide.is-active .hero-slide__bg {
+  bottom: calc(-1 * var(--home-controls-strip));
+}
+
+#homeHero .hero-slide[hidden] {
+  display: none !important;
 }
 
 #homeHero .hero-slide__bg {
@@ -106,15 +151,15 @@
   text-align: center;
   width: 100%;
   max-width: 960px;
-  height: 100%;
-  max-height: 100%;
+  height: auto;
+  max-height: none;
   margin: 0 auto;
   padding:
     var(--home-pad-y)
     var(--home-pad-x)
-    calc(var(--home-pad-y) + var(--home-controls-h)) !important;
+    var(--home-pad-y) !important;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 #homeHero .hero-center {
@@ -222,6 +267,8 @@
   gap: 12px;
   margin: clamp(4px, 1vh, 10px) 0 0 !important;
   padding: 0;
+  position: relative;
+  z-index: 3;
 }
 
 #homeHero .hero-center .hero-actions .btn {
@@ -230,26 +277,42 @@
   min-height: 0;
 }
 
-/* Carousel controls — overlay bottom of hero, fully transparent (no black box) */
-#homeHero .hero-slider__viewport > .hero-slider__controls {
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: auto !important;
-  height: var(--home-controls-h);
-  margin: 0 !important;
-  padding: 0 var(--home-pad-x) 6px !important;
+/* Carousel controls — below slide content, never over CTAs */
+#homeHero .hero-slider__viewport > .hero-slider__controls,
+#homeHero nav.hero-slider__controls {
+  position: relative !important;
+  inset: auto !important;
+  flex-shrink: 0;
+  order: 2;
+  width: 100%;
+  max-width: 960px;
+  height: auto;
+  min-height: 0;
+  margin: 0 auto !important;
+  padding: clamp(10px, 1.5vh, 14px) var(--home-pad-x) clamp(12px, 1.8vh, 16px) !important;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  background: none !important;
+  gap: clamp(16px, 4vw, 28px);
+  background: transparent !important;
   background-color: transparent !important;
   border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
   box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-sizing: border-box;
   z-index: 25;
   pointer-events: none;
+}
+
+#homeHero .hero-slider__controls .hero-slider__dots {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 #homeHero .hero-slider__controls .hero-slider__nav {
@@ -280,51 +343,18 @@
 }
 
 @media (max-width: 760px) {
-  /* Let the page scroll normally — no trapped inner scroll area */
   #homeHero.hero-slider {
-    --home-controls-h: 42px;
+    --home-controls-strip: clamp(48px, 9vh, 60px);
     --home-pad-y: clamp(12px, 2vh, 18px);
     --home-pad-x: clamp(14px, 4vw, 20px);
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  #homeHero .hero-slider__viewport {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
+    min-height: 0;
   }
 
   #homeHero .hero-slide {
-    position: relative !important;
-    inset: auto !important;
-    width: 100%;
-    height: auto !important;
     min-height: 0;
-    display: none !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
-    overflow: visible !important;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  #homeHero .hero-slide.is-active {
-    display: flex !important;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    z-index: 2;
-  }
-
-  #homeHero .hero-slide[hidden] {
-    display: none !important;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   #homeHero .hero-slide__layout {
@@ -420,16 +450,25 @@
     box-sizing: border-box;
   }
 
-  #homeHero .hero-slider__viewport > .hero-slider__controls {
-    position: relative !important;
-    inset: auto !important;
-    flex-shrink: 0;
-    width: 100%;
-    height: auto;
-    min-height: var(--home-controls-h);
+  #homeHero .hero-slide.is-active {
+    min-height: 0;
+  }
+
+  #homeHero .hero-slide.is-active .hero-slide__bg {
+    bottom: calc(-1 * var(--home-controls-strip));
+  }
+
+  #homeHero .hero-slider__viewport > .hero-slider__controls,
+  #homeHero nav.hero-slider__controls {
+    max-width: 100%;
     margin: 0 !important;
-    padding: 10px max(var(--home-pad-x), env(safe-area-inset-right, 0px)) 14px
-      max(var(--home-pad-x), env(safe-area-inset-left, 0px)) !important;
+    padding-left: max(var(--home-pad-x), env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(var(--home-pad-x), env(safe-area-inset-right, 0px)) !important;
+    gap: 12px;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 }
 
