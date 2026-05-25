@@ -580,6 +580,149 @@ document.addEventListener("DOMContentLoaded", () => {
     el.replaceWith(wrap);
   });
 
+  // Industry pages — inject gradient SVG icons into cards, chips, steps, prose
+  const setupIndustryPageIcons = (pageClass, pfx) => {
+    if (!document.body.classList.contains(pageClass)) return;
+
+    const svg = (paths) =>
+      `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${paths}</svg>`;
+
+    const icon = (cls, paths) => {
+      const el = document.createElement(/card__icon|process-step__icon/.test(cls) ? "div" : "span");
+      el.className = cls;
+      el.setAttribute("aria-hidden", "true");
+      el.innerHTML = svg(paths);
+      return el;
+    };
+
+    const cardIcons = [
+      `<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M12 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14z" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M4 18V8l8-4 8 4v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 18v-5h6v5" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M12 21s-6-4.2-6-9a6 6 0 0 1 12 0c0 4.8-6 9-6 9z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M4 16V6l8-3 8 3v10l-8 3-8-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9v10M4 6l8 3 8-3" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M4 19h16M6 19V9l6-4 6 4v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19v-4h4v4" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 17l-6.3 4 2.3-7-6-4.6h7.6L12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M8 21h8M10 21V9l4-3 4 3v12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<path d="M6 20V10l6-4 6 4v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.8"/>`,
+      `<circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M4 7h16v12H4V7z" stroke="currentColor" stroke-width="1.8"/><path d="M8 11h8M8 15h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M5 19V9l7-5 7 5v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 19v-4h6v4" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="1.8"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" stroke="currentColor" stroke-width="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M7 11h10M7 15h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M4 18l4-4 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<path d="M12 3l8 4v10l-8 4-8-4V7l8-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M8 11h8v8H8v-8zM8 7h8M12 7V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<path d="M6 18V6h12v12H6z" stroke="currentColor" stroke-width="1.8"/><path d="M9 9h6v6H9V9z" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M3 12h4l3-8 4 16 3-8h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`
+    ];
+
+    const caseIcons = [
+      `<path d="M4 18V9l8-5 8 5v9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 18v-4h6v4" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M12 3l2.4 7.4H22l-6 4.6 2.3 7L12 17l-6.3 4 2.3-7-6-4.6h7.6L12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M5 19V8l7-4 7 4v11" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 19v-5h6v5" stroke="currentColor" stroke-width="1.8"/>`,
+      `<path d="M8 11h8M8 15h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="9" r="2" stroke="currentColor" stroke-width="1.8"/><path d="M6 20h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`
+    ];
+
+    const stepIcons = [
+      `<path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20h12a2 2 0 0 0 2-2V8l-6-4-6 4v10a2 2 0 0 0 2 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M4 6h16v4H4V6zM4 14h10v4H4v-4zM18 14h2v4h-2v-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<path d="M4 18V8l8-4 8 4v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 14h8M8 18h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`
+    ];
+
+    const chipIcons = [
+      `<path d="M4 12l4 4 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M4 7h16v10H4V7z" stroke="currentColor" stroke-width="1.8"/><path d="M8 11h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M6 20c0-3.3 3.6-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      `<path d="M12 21s-6-4-6-9a6 6 0 1 1 12 0c0 5-6 9-6 9z" stroke="currentColor" stroke-width="1.8"/>`,
+      `<rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M10 9l6 3-6 3V9z" fill="currentColor"/>`,
+      `<path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`
+    ];
+
+    const decoIcons = [
+      `<path d="M8 42V22l17-12 17 12v20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 42v-10h14v10" fill="none" stroke="currentColor" stroke-width="1.5"/>`,
+      `<circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M50 28v22l14 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`,
+      `<path d="M16 72l17-44 17 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M24 58h34" stroke="currentColor" stroke-width="1.5"/>`,
+      `<rect x="18" y="24" width="64" height="44" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M42 38l16 12-16 12V38z" fill="none" stroke="currentColor" stroke-width="1.5"/>`,
+      `<path d="M12 78c12-18 28-18 40 0M22 58c8-10 18-10 26 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`,
+      `<path d="M10 70h80M20 70V30l30-16 30 16v40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>`,
+      `<circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M50 30v40M30 50h40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`
+    ];
+
+    const proseIcons = [
+      `<path d="M4 18V8l8-4 8 4v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`,
+      `<path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      `<circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`
+    ];
+
+    const scope = `.${pageClass}`;
+    const iconKey = `${pfx}Icon`;
+
+    document.querySelectorAll(`${scope} .${pfx}-card`).forEach((card, i) => {
+      if (card.dataset[iconKey] === "true") return;
+      const h3 = card.querySelector("h3");
+      if (!h3) return;
+      const paths = card.classList.contains(`${pfx}-case-card`)
+        ? caseIcons[i % caseIcons.length]
+        : cardIcons[i % cardIcons.length];
+      h3.before(icon(`${pfx}-card__icon`, paths));
+      card.dataset[iconKey] = "true";
+    });
+
+    document.querySelectorAll(`${scope} .${pfx}-chips > li`).forEach((li, i) => {
+      if (li.dataset[iconKey] === "true" || li.querySelector(`.${pfx}-chip__icon`)) return;
+      const text = li.textContent.trim();
+      li.textContent = "";
+      li.append(icon(`${pfx}-chip__icon`, chipIcons[i % chipIcons.length]), document.createTextNode(text));
+      li.dataset[iconKey] = "true";
+    });
+
+    document.querySelectorAll(`${scope} .${pfx}-process-step`).forEach((step, i) => {
+      if (step.dataset[iconKey] === "true") return;
+      const num = step.querySelector(`.${pfx}-process-step__num`);
+      const h3 = step.querySelector("h3");
+      if (!num || !h3) return;
+      const head = document.createElement("div");
+      head.className = `${pfx}-process-step__head`;
+      head.append(icon(`${pfx}-process-step__icon`, stepIcons[i % stepIcons.length]), num);
+      h3.before(head);
+      step.dataset[iconKey] = "true";
+    });
+
+    document.querySelectorAll(`${scope} .${pfx}-prose`).forEach((prose, i) => {
+      if (prose.dataset[iconKey] === "true" || prose.querySelector(`.${pfx}-prose__icon`)) return;
+      prose.append(icon(`${pfx}-prose__icon`, proseIcons[i % proseIcons.length]));
+      prose.dataset[iconKey] = "true";
+    });
+
+    document.querySelectorAll(`${scope} .${pfx}-section`).forEach((sec, i) => {
+      if (sec.querySelector(`.${pfx}-section__deco`)) return;
+      const deco = document.createElement("div");
+      deco.className = `${pfx}-section__deco`;
+      deco.setAttribute("aria-hidden", "true");
+      deco.innerHTML = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">${decoIcons[i % decoIcons.length]}</svg>`;
+      const mesh = sec.querySelector(`.${pfx}-section__mesh`);
+      if (mesh) mesh.after(deco);
+      else sec.prepend(deco);
+    });
+  };
+
+  setupIndustryPageIcons("page-realestate-marketing", "re");
+  setupIndustryPageIcons("page-healthcare-marketing", "hc");
+  setupIndustryPageIcons("page-fmcg-marketing", "fmcg");
+  setupIndustryPageIcons("page-textile-marketing", "tx");
+  setupIndustryPageIcons("page-education-marketing", "ed");
+
   if (header) {
     const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8);
     onScroll();
@@ -644,6 +787,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Ensure base content is visible even if cinematic timelines delay.
   document.querySelectorAll(".fade-in").forEach((el) => el.classList.add("visible"));
 
+  const getAccordionToggle = (button) =>
+    button.querySelector(".accordion-toggle") || button.querySelector(":scope > span:last-child");
+
   document.querySelectorAll(".accordion-header").forEach((button) => {
     button.addEventListener("click", () => {
       const content = button.nextElementSibling;
@@ -651,15 +797,15 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".accordion-header").forEach((b) => {
         b.classList.remove("open");
         b.setAttribute("aria-expanded", "false");
-        const icon = b.querySelector("span");
-        if (icon) icon.textContent = "+";
+        const toggle = getAccordionToggle(b);
+        if (toggle) toggle.textContent = "+";
       });
       document.querySelectorAll(".accordion-content").forEach((c) => (c.style.maxHeight = null));
       if (!isOpen && content) {
         button.classList.add("open");
         button.setAttribute("aria-expanded", "true");
-        const icon = button.querySelector("span");
-        if (icon) icon.textContent = "-";
+        const toggle = getAccordionToggle(button);
+        if (toggle) toggle.textContent = "-";
         content.style.maxHeight = `${content.scrollHeight}px`;
       }
     });

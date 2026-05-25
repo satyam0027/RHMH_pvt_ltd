@@ -1,0 +1,235 @@
+/* ==========================================================================
+   Industries hub page — section redesign (headings unchanged)
+   Scoped to .page-industries-hub
+   ========================================================================== */
+
+.page-industries-hub main > .ind-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-top: clamp(40px, 5vw, 60px) !important;
+  padding-bottom: clamp(32px, 4vw, 48px) !important;
+  background:
+    radial-gradient(70% 50% at 12% 0%, rgba(123, 97, 255, 0.06) 0%, transparent 58%),
+    radial-gradient(55% 45% at 88% 100%, rgba(255, 77, 77, 0.05) 0%, transparent 62%),
+    linear-gradient(180deg, #f8f9fd 0%, #f3f5fb 100%) !important;
+}
+
+.page-industries-hub .ind-section__mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 15%, transparent 74%);
+}
+
+.page-industries-hub .ind-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.page-industries-hub .ind-section .section-head {
+  max-width: min(900px, 100%);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.page-industries-hub .ind-section .section-head .mini-title {
+  margin-inline: auto;
+}
+
+.page-industries-hub .ind-section .section-head h2 {
+  text-align: center !important;
+  margin-inline: auto;
+}
+
+.page-industries-hub .ind-section .section-head > p,
+.page-industries-hub .ind-section__intro {
+  text-align: center !important;
+  margin: clamp(14px, 2vw, 18px) auto 0 !important;
+  max-width: min(640px, 100%);
+  border-left: none !important;
+  padding-left: 0 !important;
+  font-size: clamp(0.96rem, 1.35vw, 1.04rem) !important;
+  line-height: 1.65 !important;
+  color: rgba(15, 23, 42, 0.68) !important;
+}
+
+/* Industry cards */
+.page-industries-hub .ind-grid {
+  display: grid;
+  gap: clamp(14px, 2vw, 18px);
+  margin-top: clamp(28px, 3.5vw, 36px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .page-industries-hub .ind-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-industries-hub .ind-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .page-industries-hub .ind-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .page-industries-hub .ind-card {
+    grid-column: span 2;
+  }
+
+  .page-industries-hub .ind-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .page-industries-hub .ind-card:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+}
+
+.page-industries-hub .ind-card {
+  --ind-accent: linear-gradient(90deg, #ff4d4d 0%, #7b61ff 100%);
+  --ind-glow: rgba(255, 77, 77, 0.12);
+  --ind-icon-bg: linear-gradient(145deg, rgba(255, 77, 77, 0.14), rgba(123, 97, 255, 0.12));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: clamp(22px, 2.8vw, 28px) clamp(20px, 2.5vw, 24px);
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+.page-industries-hub .ind-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ind-accent);
+}
+
+.page-industries-hub .ind-card:nth-child(1) {
+  --ind-accent: linear-gradient(90deg, #ff4d4d, #7b61ff);
+  --ind-glow: rgba(255, 77, 77, 0.14);
+  --ind-icon-bg: linear-gradient(145deg, rgba(255, 77, 77, 0.14), rgba(123, 97, 255, 0.12));
+}
+
+.page-industries-hub .ind-card:nth-child(2) {
+  --ind-accent: linear-gradient(90deg, #22c55e, #12c2e9);
+  --ind-glow: rgba(34, 197, 94, 0.14);
+  --ind-icon-bg: linear-gradient(145deg, rgba(34, 197, 94, 0.14), rgba(18, 194, 233, 0.12));
+}
+
+.page-industries-hub .ind-card:nth-child(3) {
+  --ind-accent: linear-gradient(90deg, #ff8a3d, #ff4d4d);
+  --ind-glow: rgba(255, 138, 61, 0.14);
+  --ind-icon-bg: linear-gradient(145deg, rgba(255, 138, 61, 0.14), rgba(255, 77, 77, 0.12));
+}
+
+.page-industries-hub .ind-card:nth-child(4) {
+  --ind-accent: linear-gradient(90deg, #7b61ff, #ff4d8a);
+  --ind-glow: rgba(123, 97, 255, 0.14);
+  --ind-icon-bg: linear-gradient(145deg, rgba(123, 97, 255, 0.14), rgba(255, 77, 138, 0.1));
+}
+
+.page-industries-hub .ind-card:nth-child(5) {
+  --ind-accent: linear-gradient(90deg, #12c2e9, #7b61ff);
+  --ind-glow: rgba(18, 194, 233, 0.14);
+  --ind-icon-bg: linear-gradient(145deg, rgba(18, 194, 233, 0.14), rgba(123, 97, 255, 0.12));
+}
+
+.page-industries-hub .ind-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(123, 97, 255, 0.16);
+  box-shadow: 0 20px 44px var(--ind-glow);
+}
+
+.page-industries-hub .ind-card__icon {
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--ind-icon-bg);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.page-industries-hub .ind-card__icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.page-industries-hub .ind-card h3 {
+  margin: 0 !important;
+  font-size: clamp(1.05rem, 1.5vw, 1.18rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1.25 !important;
+  color: rgba(15, 23, 42, 0.96) !important;
+}
+
+.page-industries-hub .ind-card > p.muted {
+  margin: 0 !important;
+  flex: 1;
+  font-size: 0.92rem !important;
+  line-height: 1.6 !important;
+  color: rgba(15, 23, 42, 0.66) !important;
+  border-left: none !important;
+  padding-left: 0 !important;
+}
+
+.page-industries-hub .ind-card .btn {
+  align-self: flex-start;
+  margin-top: 4px;
+  border-radius: 999px !important;
+  padding: 10px 18px !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
+
+.page-industries-hub .ind-card .btn.btn-dark,
+.page-industries-hub .ind-card .btn.btn-secondary {
+  color: rgba(15, 23, 42, 0.88) !important;
+  background: rgba(15, 23, 42, 0.04) !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
+.page-industries-hub .ind-card .btn:hover {
+  color: #ffffff !important;
+  background: var(--ind-accent) !important;
+  border-color: transparent !important;
+}
+
+@media (max-width: 767px) {
+  .page-industries-hub .ind-card {
+    padding: 18px 16px;
+  }
+
+  .page-industries-hub .ind-grid {
+    grid-template-columns: 1fr;
+  }
+}
