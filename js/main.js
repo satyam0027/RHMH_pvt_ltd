@@ -730,17 +730,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (menuToggle && mobileMenu) {
+    const setMenuOpen = (open) => {
+      mobileMenu.classList.toggle("open", open);
+      menuToggle.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("menu-open", open);
+    };
     menuToggle.addEventListener("click", () => {
-      mobileMenu.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(mobileMenu.classList.contains("open")));
+      setMenuOpen(!mobileMenu.classList.contains("open"));
     });
     mobileMenu.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
+        setMenuOpen(false);
       });
     });
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) setMenuOpen(false);
+    }, { passive: true });
   }
+
+  // Lazy-load images below the fold (preserve eager loading for hero/LCP)
+  document.querySelectorAll("img:not([loading])").forEach((img) => {
+    const inHero = img.closest(".hero, .hero-slider, .hero-slide, .hero-inner, .hero-premium, #homeHero");
+    img.loading = inHero ? "eager" : "lazy";
+    if (!img.hasAttribute("decoding")) img.decoding = "async";
+  });
 
   const servicesMobileChevron = document.querySelector(".services-mobile-chevron");
   const servicesMobileSub = document.querySelector(".mobile-services-sub");

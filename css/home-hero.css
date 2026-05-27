@@ -568,12 +568,24 @@
 
 @media (max-width: 420px) {
   #homeHero .hero-slider__controls .hero-slider__nav {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   #homeHero .hero-slider__dot {
     width: 22px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #homeHero .hero-actions .btn {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
   }
 }
 

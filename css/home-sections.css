@@ -1636,3 +1636,14 @@ main.page-home .industries-band .container > p.muted {
     grid-column: 4 / span 2;
   }
 }
+
+/* Tablet: 2-column industry grid before desktop 3-up layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  main.page-home .industries-band .industry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  main.page-home .industries-band .industry-grid > .industry-btn {
+    grid-column: auto !important;
+  }
+}
