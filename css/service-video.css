@@ -310,6 +310,29 @@
   background: #ffffff;
 }
 
+/* Feature banners — native 1024×682 ratio, full bleed without cropping */
+.page-video-production .vp-portfolio-card__media--podcast,
+.page-video-production .vp-portfolio-card__media--ad-films,
+.page-video-production .vp-portfolio-card__media--corporate {
+  aspect-ratio: 1024 / 682;
+}
+
+.page-video-production .vp-portfolio-card__media--reels,
+.page-video-production .vp-portfolio-card__media--real-estate,
+.page-video-production .vp-portfolio-card__media--healthcare {
+  aspect-ratio: 1024 / 576;
+}
+
+.page-video-production .vp-portfolio-card__media--podcast img,
+.page-video-production .vp-portfolio-card__media--ad-films img,
+.page-video-production .vp-portfolio-card__media--corporate img,
+.page-video-production .vp-portfolio-card__media--reels img,
+.page-video-production .vp-portfolio-card__media--real-estate img,
+.page-video-production .vp-portfolio-card__media--healthcare img {
+  object-fit: cover;
+  object-position: center center;
+}
+
 .page-video-production .vp-portfolio-card:hover .vp-portfolio-card__media img {
   transform: scale(1.04);
 }
