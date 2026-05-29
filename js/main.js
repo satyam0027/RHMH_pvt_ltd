@@ -37,7 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const syncSiteHeaderHeight = () => {
     const siteHeader = document.querySelector(".site-header");
     if (!siteHeader) return;
-    const height = Math.ceil(siteHeader.getBoundingClientRect().height);
+    const navWrap = siteHeader.querySelector(".nav-wrap");
+    const isMobileNav = window.matchMedia("(max-width: 1023px)").matches;
+    /* On mobile the topbar is hidden — measure only the visible nav row */
+    const height = Math.ceil(
+      (isMobileNav && navWrap ? navWrap : siteHeader).getBoundingClientRect().height
+    );
     document.documentElement.style.setProperty("--site-header-h", `${height}px`);
     const homeHero = document.getElementById("homeHero");
     if (homeHero) homeHero.style.setProperty("--home-header", `${height}px`);
@@ -733,16 +738,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const setMenuOpen = (open) => {
       mobileMenu.classList.toggle("open", open);
       menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       document.body.classList.toggle("menu-open", open);
+      mobileMenu.setAttribute("aria-hidden", String(!open));
+      if (open) {
+        syncSiteHeaderHeight();
+        requestAnimationFrame(syncSiteHeaderHeight);
+      }
     };
-    menuToggle.addEventListener("click", () => {
+
+    menuToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       setMenuOpen(!mobileMenu.classList.contains("open"));
     });
+
     mobileMenu.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", () => {
-        setMenuOpen(false);
-      });
+      a.addEventListener("click", () => setMenuOpen(false));
     });
+
+    document.addEventListener("click", (e) => {
+      if (!mobileMenu.classList.contains("open")) return;
+      if (e.target.closest(".mobile-menu") || e.target.closest(".menu-toggle")) return;
+      setMenuOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileMenu.classList.contains("open")) setMenuOpen(false);
+    });
+
     window.addEventListener("resize", () => {
       if (window.matchMedia("(min-width: 1024px)").matches) setMenuOpen(false);
     }, { passive: true });
