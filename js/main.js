@@ -722,6 +722,70 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const setupPolicyPage = () => {
+    if (!document.body.classList.contains("page-policy")) return;
+
+    const docBody = document.querySelector(".lg-doc__body");
+    const tocNav = document.getElementById("policyToc");
+    if (!docBody) return;
+
+    const headings = [...docBody.querySelectorAll("h2[id]")];
+    headings.forEach((h2) => {
+      if (h2.closest(".lg-block")) return;
+      const block = document.createElement("div");
+      block.className = "lg-block";
+      h2.before(block);
+      block.appendChild(h2);
+      let next = block.nextSibling;
+      while (next && !(next.nodeType === 1 && next.tagName === "H2")) {
+        const current = next;
+        next = next.nextSibling;
+        block.appendChild(current);
+      }
+    });
+
+    if (tocNav && headings.length) {
+      headings.forEach((h2) => {
+        const link = document.createElement("a");
+        link.href = `#${h2.id}`;
+        link.textContent = h2.textContent.replace(/^\d+\.\s*/, "");
+        tocNav.appendChild(link);
+      });
+
+      const tocLinks = [...tocNav.querySelectorAll("a")];
+      const setActive = (id) => {
+        tocLinks.forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible?.target?.id) setActive(visible.target.id);
+          },
+          { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.25, 0.5, 1] }
+        );
+        headings.forEach((h2) => observer.observe(h2));
+      } else {
+        tocLinks[0]?.classList.add("is-active");
+      }
+    }
+
+    const current = document.body.className.match(/page-policy--(\w+)/)?.[1];
+    if (current) {
+      document.querySelectorAll(".lg-related__grid a[data-policy]").forEach((link) => {
+        link.classList.toggle("is-current", link.dataset.policy === current);
+        if (link.dataset.policy === current) link.setAttribute("aria-current", "page");
+      });
+    }
+  };
+
+  setupPolicyPage();
+
   setupIndustryPageIcons("page-realestate-marketing", "re");
   setupIndustryPageIcons("page-healthcare-marketing", "hc");
   setupIndustryPageIcons("page-fmcg-marketing", "fmcg");
