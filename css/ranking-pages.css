@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Ranking / location landing pages — scoped to .page-ranking
+   ========================================================================== */
+
+.page-ranking main > .post-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-top: clamp(2rem, 4vw, 3rem) !important;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem) !important;
+}
+
+.page-ranking .post-section.light-section {
+  background:
+    radial-gradient(70% 50% at 12% 0%, rgba(123, 97, 255, 0.06) 0%, transparent 58%),
+    radial-gradient(55% 45% at 88% 100%, rgba(18, 194, 233, 0.05) 0%, transparent 62%),
+    linear-gradient(180deg, #f8f9fd 0%, #f3f5fb 100%) !important;
+}
+
+.page-ranking .post-section__mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 15%, transparent 74%);
+}
+
+.page-ranking .post-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.page-ranking .post-article {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.page-ranking .post-breadcrumb {
+  font-size: 0.84rem;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  color: rgba(15, 23, 42, 0.55) !important;
+}
+
+.page-ranking .post-breadcrumb a {
+  color: rgba(15, 23, 42, 0.7) !important;
+  text-decoration: none;
+}
+
+.page-ranking .post-breadcrumb a:hover {
+  color: #7b61ff !important;
+}
+
+.page-ranking .post-breadcrumb span {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
+.page-ranking .post-doc {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+}
+
+.page-ranking .post-prose > p,
+.page-ranking .post-prose > ul,
+.page-ranking .post-prose > ol {
+  margin: 0 0 1.15rem;
+}
+
+.page-ranking .rank-lead {
+  position: relative;
+  margin: 0 0 clamp(1.35rem, 2.5vw, 1.75rem);
+  padding: clamp(1.15rem, 2.5vw, 1.5rem) clamp(1.2rem, 2.5vw, 1.65rem) clamp(1.15rem, 2.5vw, 1.5rem) clamp(1.5rem, 3vw, 1.9rem);
+  border-radius: 16px;
+  font-size: clamp(1.1rem, 2.4vw, 1.28rem);
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: rgba(15, 23, 42, 0.94) !important;
+  background:
+    radial-gradient(90% 120% at 0% 0%, rgba(123, 97, 255, 0.1) 0%, transparent 55%),
+    radial-gradient(70% 100% at 100% 100%, rgba(18, 194, 233, 0.08) 0%, transparent 60%),
+    rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(123, 97, 255, 0.16);
+  box-shadow: 0 10px 28px rgba(123, 97, 255, 0.07);
+}
+
+.page-ranking .rank-lead::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14%;
+  bottom: 14%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, #7b61ff 0%, #12c2e9 100%);
+}
+
+.page-ranking .post-prose p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(15, 23, 42, 0.78) !important;
+}
+
+.page-ranking .post-prose h2 {
+  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0.85rem;
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem) !important;
+  line-height: 1.25;
+  color: rgba(15, 23, 42, 0.96) !important;
+  padding-bottom: 12px;
+}
+
+.page-ranking .post-prose h3 {
+  margin: 1.6rem 0 0.6rem;
+  font-size: clamp(1.08rem, 2vw, 1.22rem) !important;
+  color: rgba(15, 23, 42, 0.92) !important;
+}
+
+.page-ranking .post-prose ul,
+.page-ranking .post-prose ol {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.page-ranking .post-prose ul li,
+.page-ranking .post-prose ol li {
+  position: relative;
+  padding: 0.6rem 0.9rem 0.6rem 2.1rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.025);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(15, 23, 42, 0.8) !important;
+}
+
+.page-ranking .post-prose ul li::before,
+.page-ranking .post-prose ol li::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 1.05rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7b61ff, #12c2e9);
+}
+
+.page-ranking .post-prose ol {
+  counter-reset: rank-step;
+}
+
+.page-ranking .post-prose ol li {
+  counter-increment: rank-step;
+  padding-left: 2.6rem;
+}
+
+.page-ranking .post-prose ol li::before {
+  content: counter(rank-step);
+  width: 1.35rem;
+  height: 1.35rem;
+  top: 0.72rem;
+  left: 0.65rem;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #7b61ff, #12c2e9);
+}
+
+.page-ranking .post-prose a {
+  color: #7b61ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-ranking .rank-locations {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.page-ranking .rank-locations__item {
+  padding: clamp(0.9rem, 2vw, 1.15rem) clamp(1rem, 2vw, 1.25rem);
+  border-radius: 14px;
+  background: rgba(18, 194, 233, 0.04);
+  border: 1px solid rgba(18, 194, 233, 0.14);
+}
+
+.page-ranking .rank-locations__item h3 {
+  margin: 0 0 0.45rem !important;
+  font-size: 1.02rem !important;
+}
+
+.page-ranking .rank-locations__item p {
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+}
+
+.page-ranking .rank-faq {
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  padding: clamp(0.85rem, 2vw, 1.1rem);
+  border-radius: 18px;
+  background:
+    radial-gradient(80% 100% at 0% 0%, rgba(123, 97, 255, 0.06) 0%, transparent 55%),
+    rgba(248, 249, 253, 0.95);
+  border: 1px solid rgba(123, 97, 255, 0.12);
+  display: grid;
+  gap: 10px;
+}
+
+.page-ranking .rank-faq .accordion-item {
+  margin-bottom: 0 !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  background: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04) !important;
+  backdrop-filter: none !important;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.page-ranking .rank-faq .accordion-item:has(.accordion-header.open) {
+  border-color: rgba(123, 97, 255, 0.28) !important;
+  box-shadow: 0 10px 26px rgba(123, 97, 255, 0.1) !important;
+}
+
+.page-ranking .rank-faq .accordion-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  text-align: left;
+  color: rgba(15, 23, 42, 0.92) !important;
+  background: transparent !important;
+  border: none;
+  cursor: pointer;
+}
+
+.page-ranking .rank-faq .accordion-header:hover {
+  background: rgba(123, 97, 255, 0.03) !important;
+}
+
+.page-ranking .rank-faq__num {
+  flex: 0 0 auto;
+  min-width: 2.15rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 8px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #7b61ff;
+  background: rgba(123, 97, 255, 0.1);
+  border: 1px solid rgba(123, 97, 255, 0.16);
+  line-height: 1.4;
+}
+
+.page-ranking .rank-faq__label {
+  flex: 1 1 auto;
+  font-size: clamp(0.94rem, 1.8vw, 1.02rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: rgba(15, 23, 42, 0.94) !important;
+}
+
+.page-ranking .rank-faq .accordion-toggle {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #7b61ff !important;
+  background: rgba(123, 97, 255, 0.08);
+  border: 1px solid rgba(123, 97, 255, 0.16);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.page-ranking .rank-faq .accordion-header.open .accordion-toggle {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #7b61ff, #12c2e9);
+  border-color: transparent;
+}
+
+.page-ranking .rank-faq .accordion-content-inner {
+  padding: 0 16px 16px 3.35rem !important;
+}
+
+.page-ranking .rank-faq .accordion-content-inner p {
+  margin: 0 !important;
+  padding: 0 0 2px !important;
+  font-size: 0.95rem !important;
+  line-height: 1.7 !important;
+  color: rgba(15, 23, 42, 0.72) !important;
+}
+
+.page-ranking .rank-faq .accordion-content-inner a {
+  color: #7b61ff;
+  font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .page-ranking .rank-faq .accordion-content-inner {
+    padding-left: 16px !important;
+  }
+}
+
+.page-ranking .post-cta {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 20px;
+  text-align: center;
+  background:
+    radial-gradient(80% 80% at 100% 0%, rgba(123, 97, 255, 0.12) 0%, transparent 58%),
+    linear-gradient(135deg, #0f172a 0%, #1a1f35 100%);
+}
+
+.page-ranking .section.light-section.post-section .post-cta h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.2rem, 2.6vw, 1.55rem) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  padding-bottom: 0 !important;
+}
+
+.page-ranking .section.light-section.post-section .post-cta h2::after {
+  display: none !important;
+}
+
+.page-ranking .section.light-section.post-section .post-cta p {
+  margin: 0 0 1.1rem;
+  font-size: 0.95rem;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.page-ranking .post-cta .btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.page-ranking .post-cta .btn {
+  margin-inline: 0;
+}
