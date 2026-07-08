@@ -185,6 +185,49 @@
   text-underline-offset: 2px;
 }
 
+.page-ranking .post-figure {
+  margin: 0 0 clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+}
+
+.page-ranking .post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.page-ranking .post-prose .post-figure {
+  margin-top: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.page-ranking .rank-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.page-ranking .rank-tags li {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.78) !important;
+  background: rgba(123, 97, 255, 0.07);
+  border: 1px solid rgba(123, 97, 255, 0.14);
+}
+
+.page-ranking .rank-tags li::before {
+  display: none;
+}
+
 .page-ranking .rank-locations {
   display: grid;
   gap: 0.85rem;
@@ -358,6 +401,12 @@
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
+}
+
+.page-ranking .section.light-section.post-section .post-cta p a {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-decoration: underline;
 }
 
 .page-ranking .post-cta .btn {
