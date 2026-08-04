@@ -196,6 +196,39 @@
   color: rgba(15, 23, 42, 0.72) !important;
 }
 
+.page-blog-post .post-table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0 1.75rem;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.page-blog-post .post-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+
+.page-blog-post .post-table th,
+.page-blog-post .post-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.page-blog-post .post-table thead th {
+  background: rgba(123, 97, 255, 0.08);
+  font-weight: 700;
+}
+
+.page-blog-post .post-table tbody th[scope="row"] {
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.88);
+  background: rgba(15, 23, 42, 0.02);
+}
+
 /* Author / CTA strip */
 .page-blog-post .post-cta {
   margin-top: clamp(1.5rem, 3vw, 2rem);
