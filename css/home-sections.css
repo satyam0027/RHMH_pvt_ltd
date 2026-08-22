@@ -1647,3 +1647,576 @@ main.page-home .industries-band .container > p.muted {
     grid-column: auto !important;
   }
 }
+
+/* ---------- Homepage review ratings strip ---------- */
+.page-home .home-reviews-strip {
+  position: relative;
+  z-index: 5;
+  margin-top: clamp(-52px, -6vw, -36px);
+  padding: 0 0 clamp(28px, 4vw, 40px);
+  pointer-events: none;
+}
+
+.page-home .home-reviews-strip__inner {
+  pointer-events: auto;
+  padding: clamp(18px, 2.5vw, 24px) clamp(16px, 3vw, 28px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(123, 97, 255, 0.12) 0%, transparent 55%),
+    radial-gradient(100% 100% at 100% 100%, rgba(255, 77, 77, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 250, 255, 0.94) 100%);
+  box-shadow:
+    0 24px 48px rgba(15, 23, 42, 0.1),
+    0 4px 16px rgba(123, 97, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.page-home .home-reviews-strip__eyebrow {
+  margin: 0 0 clamp(14px, 2vw, 18px);
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.page-home .home-reviews-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 2vw, 14px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-home .home-review-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 118px;
+  padding: clamp(14px, 2vw, 18px) clamp(10px, 2vw, 14px);
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  background: rgba(255, 255, 255, 0.82);
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.page-home .home-review-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(123, 97, 255, 0.22);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.page-home .home-review-card:focus-visible {
+  outline: 2px solid rgba(123, 97, 255, 0.55);
+  outline-offset: 3px;
+}
+
+.page-home .home-review-card__logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 28px;
+  object-fit: contain;
+}
+
+.page-home .home-review-card__logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.page-home .home-review-card__logo-wrap--dark {
+  background: #0a0a0a;
+  min-width: 132px;
+}
+
+.page-home .home-review-card__logo--justdial {
+  max-height: 22px;
+  max-width: 118px;
+  width: auto;
+}
+
+.page-home .home-review-card__logo--sulekha {
+  max-height: 20px;
+  max-width: 92px;
+  width: auto;
+}
+
+.page-home .home-review-card__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.62);
+  line-height: 1.2;
+}
+
+.page-home .home-review-card__score {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: clamp(1.55rem, 2.6vw, 1.9rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #0f172a;
+}
+
+.page-home .home-review-card__stars {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: clamp(0.84rem, 1.35vw, 0.96rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  border: 1px solid rgba(255, 193, 7, 0.42);
+  background: linear-gradient(180deg, #fff9e6 0%, #ffe082 100%);
+  box-shadow:
+    0 3px 10px rgba(245, 158, 11, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  color: #e65100;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75),
+    0 0 10px rgba(255, 193, 7, 0.45);
+}
+
+@media (min-width: 640px) {
+  .page-home .home-reviews-strip__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .page-home .home-review-card {
+    min-height: 128px;
+  }
+}
+
+@media (max-width: 420px) {
+  .page-home .home-reviews-strip {
+    margin-top: -28px;
+  }
+
+  .page-home .home-reviews-strip__inner {
+    border-radius: 16px;
+    padding: 16px 12px;
+  }
+}
+
+/* ---------- Homepage client reviews marquee ---------- */
+.page-home .home-client-reviews {
+  padding-top: clamp(40px, 5vw, 56px) !important;
+  padding-bottom: clamp(48px, 6vw, 72px) !important;
+  overflow: hidden;
+}
+
+.page-home .home-client-reviews__head {
+  text-align: center;
+  margin-bottom: clamp(24px, 3.5vw, 36px);
+}
+
+.page-home .home-client-reviews__head .muted {
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+.page-home .home-client-reviews__marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+
+.page-home .home-client-reviews__track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(14px, 2vw, 20px);
+  width: max-content;
+  padding: 6px 0 10px;
+  animation: homeClientReviewsMarquee 70s linear infinite;
+  will-change: transform;
+}
+
+.page-home .home-client-reviews__marquee:hover .home-client-reviews__track {
+  animation-play-state: paused;
+}
+
+@keyframes homeClientReviewsMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.page-home .home-client-review-card {
+  flex: 0 0 auto;
+  width: min(340px, 82vw);
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 18px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 10px 28px rgba(15, 23, 42, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  text-align: left;
+}
+
+.page-home .home-client-review-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.page-home .home-client-review-card__stars {
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: #f59e0b;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.page-home .home-client-review-card__platform {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 36px;
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.07);
+}
+
+.page-home .home-client-review-card__platform--dark {
+  background: #0a0a0a;
+  border-color: rgba(255, 255, 255, 0.08);
+  min-width: 88px;
+  padding: 6px 10px;
+}
+
+.page-home .home-client-review-card__platform img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 22px;
+  object-fit: contain;
+}
+
+.page-home .home-client-review-card__platform--dark img {
+  max-height: 18px;
+}
+
+.page-home .home-client-review-card__quote {
+  margin: 0;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(15, 23, 42, 0.82);
+}
+
+.page-home .home-client-review-card__author {
+  margin: 0;
+  padding-top: 4px;
+  border-top: 1px solid rgba(15, 23, 42, 0.07);
+}
+
+.page-home .home-client-review-card__author cite {
+  font-style: normal;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-home .home-client-reviews__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: min(1120px, 94%);
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+
+  .page-home .home-client-reviews__marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .page-home .home-client-review-card[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Homepage visibility polish — section rhythm, headers, contrast
+   ========================================================================== */
+
+/* Shared section header boost */
+.page-home main > .section.light-section.home-section > .container > .mini-title,
+.page-home .home-client-reviews__head .mini-title {
+  padding: 7px 16px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  color: rgba(15, 23, 42, 0.78) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f6fc 100%) !important;
+  border: 1px solid rgba(123, 97, 255, 0.18) !important;
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.page-home main > .section.light-section.home-section > .container > h2,
+.page-home .home-client-reviews__head h2 {
+  color: rgba(15, 23, 42, 0.97) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.12 !important;
+  text-wrap: balance;
+}
+
+.page-home main > .section.light-section.home-section > .container > p.muted,
+.page-home .home-client-reviews__head .muted {
+  color: rgba(15, 23, 42, 0.72) !important;
+  font-size: clamp(1rem, 1.35vw, 1.06rem) !important;
+  line-height: 1.65 !important;
+}
+
+/* Reviews strip — stronger glass panel */
+.page-home .home-reviews-strip__inner {
+  border-color: rgba(255, 255, 255, 0.92) !important;
+  box-shadow:
+    0 28px 56px rgba(15, 23, 42, 0.12),
+    0 8px 24px rgba(123, 97, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.page-home .home-reviews-strip__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  color: rgba(15, 23, 42, 0.68) !important;
+}
+
+.page-home .home-reviews-strip__eyebrow::before,
+.page-home .home-reviews-strip__eyebrow::after {
+  content: "";
+  flex: 1;
+  max-width: 56px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(123, 97, 255, 0.35), transparent);
+}
+
+.page-home .home-review-card {
+  background: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.page-home .home-review-card:hover {
+  box-shadow: 0 16px 32px rgba(123, 97, 255, 0.12);
+}
+
+/* Client reviews — full-width band */
+.page-home .home-client-reviews {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(70% 55% at 50% 0%, rgba(255, 193, 7, 0.07) 0%, transparent 62%),
+    radial-gradient(60% 50% at 10% 100%, rgba(123, 97, 255, 0.06) 0%, transparent 65%),
+    linear-gradient(180deg, #f6f8fd 0%, #eef1f8 100%) !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.page-home .home-client-reviews::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 15%, transparent 75%);
+}
+
+.page-home .home-client-reviews__head,
+.page-home .home-client-reviews__marquee {
+  position: relative;
+  z-index: 1;
+}
+
+.page-home .home-client-review-card {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  background: #ffffff !important;
+  box-shadow:
+    0 12px 32px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.page-home .home-client-review-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(123, 97, 255, 0.2) !important;
+  box-shadow:
+    0 20px 40px rgba(15, 23, 42, 0.1),
+    0 8px 24px rgba(123, 97, 255, 0.1) !important;
+}
+
+.page-home .home-client-review-card__stars {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255, 193, 7, 0.12);
+  border: 1px solid rgba(255, 193, 7, 0.28);
+  color: #d97706;
+  font-weight: 700;
+}
+
+/* Results — sharper card lift */
+.page-home .results-first .result-card {
+  border-color: rgba(15, 23, 42, 0.09) !important;
+}
+
+.page-home .results-first .result-card__num {
+  font-size: clamp(1.45rem, 2.8vw, 1.85rem) !important;
+}
+
+/* Industries — warm contrast band */
+.page-home .industries-band {
+  position: relative;
+  background:
+    radial-gradient(65% 50% at 100% 0%, rgba(255, 77, 77, 0.06) 0%, transparent 60%),
+    radial-gradient(55% 45% at 0% 100%, rgba(123, 97, 255, 0.05) 0%, transparent 62%),
+    linear-gradient(180deg, #ffffff 0%, #f8f9fd 100%) !important;
+}
+
+.page-home .industries-band .industry-btn {
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+}
+
+.page-home .industries-band .industry-btn:hover {
+  box-shadow: 0 18px 40px rgba(123, 97, 255, 0.12) !important;
+}
+
+.page-home .industries-band__focus {
+  border-color: rgba(123, 97, 255, 0.12) !important;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.07) !important;
+}
+
+.page-home .focus-pillar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px var(--pillar-glow);
+  border-color: rgba(123, 97, 255, 0.16);
+}
+
+/* Authority cards — clearer separation */
+.page-home .authority-band .why-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(123, 97, 255, 0.18) !important;
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.09) !important;
+}
+
+.page-home .authority-metric {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.page-home .authority-metric:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(123, 97, 255, 0.1);
+}
+
+/* Growth systems — cool band + card polish */
+.page-home .growth-systems {
+  background:
+    radial-gradient(70% 55% at 0% 100%, rgba(18, 194, 233, 0.06) 0%, transparent 62%),
+    radial-gradient(60% 50% at 100% 0%, rgba(123, 97, 255, 0.07) 0%, transparent 65%),
+    linear-gradient(180deg, #f3f5fb 0%, #eef1f8 100%) !important;
+}
+
+.page-home .growth-systems .system-card {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.09) !important;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07) !important;
+}
+
+.page-home .growth-systems .system-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 52px rgba(123, 97, 255, 0.12) !important;
+}
+
+.page-home .growth-systems .system-card__num {
+  background: linear-gradient(135deg, rgba(255, 77, 77, 0.12), rgba(123, 97, 255, 0.12)) !important;
+  color: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* Final CTA — prominent glass card */
+.page-home .final-cta {
+  background:
+    radial-gradient(80% 70% at 50% 0%, rgba(255, 77, 77, 0.08) 0%, transparent 62%),
+    radial-gradient(70% 60% at 50% 100%, rgba(123, 97, 255, 0.1) 0%, transparent 65%),
+    linear-gradient(180deg, #f8f9fd 0%, #f0f3fa 100%) !important;
+}
+
+.page-home .final-cta__inner {
+  max-width: min(860px, 100%) !important;
+  padding: clamp(28px, 4vw, 40px) clamp(22px, 3.5vw, 36px) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(123, 97, 255, 0.08) 0%, transparent 55%),
+    radial-gradient(100% 100% at 100% 100%, rgba(255, 77, 77, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.94) 100%) !important;
+  box-shadow:
+    0 24px 56px rgba(15, 23, 42, 0.1),
+    0 4px 16px rgba(123, 97, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.page-home .final-cta h2 {
+  font-size: clamp(1.85rem, 3.6vw, 2.65rem) !important;
+}
+
+.page-home .final-cta__actions .btn-primary {
+  box-shadow: 0 12px 28px rgba(255, 77, 77, 0.28);
+}
+
+.page-home .final-cta__actions .btn-primary:hover {
+  box-shadow: 0 16px 36px rgba(255, 77, 77, 0.34);
+}
+
+/* Podcast band — stronger edge glow against adjacent light sections */
+.page-home .podcast-band {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 -24px 48px rgba(15, 23, 42, 0.06),
+    0 24px 48px rgba(15, 23, 42, 0.06);
+}
+
+.page-home .podcast-band .podcast-stage__frame {
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+}
