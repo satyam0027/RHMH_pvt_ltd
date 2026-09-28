@@ -106,6 +106,31 @@
   margin-top: clamp(0.5rem, 1.5vw, 1rem);
 }
 
+/* Smaller inline images for service breakdown sections */
+.page-blog-post .post-prose .post-figure.post-figure--service {
+  max-width: min(100%, 420px);
+  margin-top: 0.65rem;
+  margin-bottom: 1.35rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+@media (min-width: 640px) {
+  .page-blog-post .post-prose .post-figure.post-figure--service {
+    max-width: min(100%, 480px);
+  }
+}
+
+.page-blog-post .post-prose .post-figure.post-figure--service-portrait {
+  max-width: min(100%, 280px);
+}
+
+@media (min-width: 640px) {
+  .page-blog-post .post-prose .post-figure.post-figure--service-portrait {
+    max-width: min(100%, 320px);
+  }
+}
+
 /* Prose */
 .page-blog-post .post-prose > p,
 .page-blog-post .post-prose > ul,
