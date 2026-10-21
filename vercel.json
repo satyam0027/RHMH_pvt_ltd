@@ -10,6 +10,97 @@
       "source": "/espodcast",
       "destination": "https://espodcaststudio.com/podcast/",
       "permanent": true
-    }
+    },
+
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/home/:path*", "destination": "/", "permanent": true },
+    { "source": "/home-v", "destination": "/", "permanent": true },
+    { "source": "/home-v/:path*", "destination": "/", "permanent": true },
+
+    { "source": "/about-us", "destination": "/about", "permanent": true },
+    { "source": "/about-us/:path*", "destination": "/about", "permanent": true },
+    { "source": "/about-us-v", "destination": "/about", "permanent": true },
+    { "source": "/about-us-v/:path*", "destination": "/about", "permanent": true },
+
+    { "source": "/contact-us", "destination": "/contact", "permanent": true },
+    { "source": "/contact-us/:path*", "destination": "/contact", "permanent": true },
+
+    { "source": "/blogs", "destination": "/blog", "permanent": true },
+    { "source": "/blogs/:path*", "destination": "/blog", "permanent": true },
+
+    { "source": "/trading-marketing", "destination": "/textile-marketing", "permanent": true },
+    { "source": "/trading-marketing.html", "destination": "/textile-marketing", "permanent": true },
+    { "source": "/trading-marketing/:path*", "destination": "/textile-marketing", "permanent": true },
+
+    { "source": "/digital-marketing-services", "destination": "/best-digital-marketing-company-in-noida", "permanent": true },
+    { "source": "/digital-marketing-services/:path*", "destination": "/best-digital-marketing-company-in-noida", "permanent": true },
+
+    { "source": "/our-services", "destination": "/services", "permanent": true },
+    { "source": "/our-services/video-production", "destination": "/services-video-production", "permanent": true },
+    { "source": "/our-services/video-production/:path*", "destination": "/services-video-production", "permanent": true },
+    { "source": "/our-services/email-marketing", "destination": "/services-smm", "permanent": true },
+    { "source": "/our-services/email-marketing/:path*", "destination": "/services-smm", "permanent": true },
+    { "source": "/our-services/es-podcast-studio-packages", "destination": "/services-video-production", "permanent": true },
+    { "source": "/our-services/es-podcast-studio-packages/:path*", "destination": "/services-video-production", "permanent": true },
+    { "source": "/our-services/search-engine-optimization", "destination": "/services-seo", "permanent": true },
+    { "source": "/our-services/search-engine-optimization/:path*", "destination": "/services-seo", "permanent": true },
+    { "source": "/our-services/ppc-advertising-services", "destination": "/services-ppc", "permanent": true },
+    { "source": "/our-services/ppc-advertising-services/:path*", "destination": "/services-ppc", "permanent": true },
+    { "source": "/our-services/logo-designing-branding", "destination": "/services", "permanent": true },
+    { "source": "/our-services/logo-designing-branding/:path*", "destination": "/services", "permanent": true },
+    { "source": "/our-services/:path*", "destination": "/services", "permanent": true },
+
+    { "source": "/services/website-and-app-development", "destination": "/services-web", "permanent": true },
+    { "source": "/services/website-and-app-development/:path*", "destination": "/services-web", "permanent": true },
+    { "source": "/services/search-engine-optimization", "destination": "/services-seo", "permanent": true },
+    { "source": "/services/search-engine-optimization/:path*", "destination": "/services-seo", "permanent": true },
+
+    { "source": "/video-production", "destination": "/services-video-production", "permanent": true },
+    { "source": "/video-production/:path*", "destination": "/services-video-production", "permanent": true },
+    { "source": "/content-marketing", "destination": "/services-smm", "permanent": true },
+    { "source": "/content-marketing/:path*", "destination": "/services-smm", "permanent": true },
+    { "source": "/paid-advertising", "destination": "/services-ppc", "permanent": true },
+    { "source": "/paid-advertising/:path*", "destination": "/services-ppc", "permanent": true },
+
+    { "source": "/media-ip-distribution", "destination": "/services-video-production", "permanent": true },
+    { "source": "/media-ip-distribution/:path*", "destination": "/services-video-production", "permanent": true },
+    { "source": "/studio-booking", "destination": "/contact", "permanent": true },
+    { "source": "/studio-booking/:path*", "destination": "/contact", "permanent": true },
+    { "source": "/web-series", "destination": "/services-video-production", "permanent": true },
+    { "source": "/web-series/:path*", "destination": "/services-video-production", "permanent": true },
+
+    { "source": "/work-process", "destination": "/about", "permanent": true },
+    { "source": "/work-process/:path*", "destination": "/about", "permanent": true },
+    { "source": "/choose-us", "destination": "/about", "permanent": true },
+    { "source": "/choose-us/:path*", "destination": "/about", "permanent": true },
+    { "source": "/teams/:path*", "destination": "/about", "permanent": true },
+    { "source": "/testimonial", "destination": "/case-studies", "permanent": true },
+    { "source": "/testimonial/:path*", "destination": "/case-studies", "permanent": true },
+    { "source": "/faqs-page", "destination": "/contact", "permanent": true },
+    { "source": "/faqs-page/:path*", "destination": "/contact", "permanent": true },
+    { "source": "/price-page", "destination": "/contact", "permanent": true },
+    { "source": "/price-page/:path*", "destination": "/contact", "permanent": true },
+
+    { "source": "/6-modern-trends-in-web-and-app-development", "destination": "/services-web", "permanent": true },
+    { "source": "/6-modern-trends-in-web-and-app-development/:path*", "destination": "/services-web", "permanent": true },
+    { "source": "/social-media-marketing-for-brand-recognition", "destination": "/services-smm", "permanent": true },
+    { "source": "/social-media-marketing-for-brand-recognition/:path*", "destination": "/services-smm", "permanent": true },
+    { "source": "/modern-logo-design-trends-from-simple-to-stunning", "destination": "/services", "permanent": true },
+    { "source": "/modern-logo-design-trends-from-simple-to-stunning/:path*", "destination": "/services", "permanent": true },
+    { "source": "/drive-results-with-personalized-email-marketing", "destination": "/services-smm", "permanent": true },
+    { "source": "/drive-results-with-personalized-email-marketing/:path*", "destination": "/services-smm", "permanent": true },
+    { "source": "/unlock-growth-with-ai-in-digital-advertising", "destination": "/services-performance-marketing", "permanent": true },
+    { "source": "/unlock-growth-with-ai-in-digital-advertising/:path*", "destination": "/services-performance-marketing", "permanent": true },
+    { "source": "/ai-content-marketing-with-a-human-touch", "destination": "/blog", "permanent": true },
+    { "source": "/ai-content-marketing-with-a-human-touch/:path*", "destination": "/blog", "permanent": true },
+    { "source": "/ai-search-optimization-for-googles-new-era", "destination": "/blog/ai-search-seo-noida-2026", "permanent": true },
+    { "source": "/ai-search-optimization-for-googles-new-era/:path*", "destination": "/blog/ai-search-seo-noida-2026", "permanent": true },
+
+    { "source": "/shop-2", "destination": "/", "permanent": true },
+    { "source": "/shop-2/:path*", "destination": "/", "permanent": true },
+    { "source": "/product/:path*", "destination": "/", "permanent": true },
+    { "source": "/product-category/:path*", "destination": "/", "permanent": true },
+    { "source": "/tf-header", "destination": "/", "permanent": true },
+    { "source": "/tf-header/:path*", "destination": "/", "permanent": true }
   ]
 }
