@@ -1109,22 +1109,50 @@ document.addEventListener("DOMContentLoaded", () => {
       return [el];
     }
 
+    const followsHighlightMarkup = (node) => {
+      let prev = node.previousSibling;
+      while (prev) {
+        if (prev.nodeType === Node.ELEMENT_NODE) {
+          if (prev.matches(".text-gradient, .hero-highlight, .word.text-gradient, .word.hero-highlight")) {
+            return true;
+          }
+          if (prev.querySelector(".text-gradient, .hero-highlight")) return true;
+          break;
+        }
+        if (prev.nodeType === Node.TEXT_NODE && (prev.textContent || "").trim()) break;
+        prev = prev.previousSibling;
+      }
+      return false;
+    };
+
     const wrapTextNode = (node, extraClass = "") => {
       const collected = [];
-      const text = node.textContent || "";
-      if (!text.trim()) {
+      const raw = node.textContent || "";
+      if (!raw.trim()) {
         node.remove();
         return collected;
       }
+      const skipHighlight = followsHighlightMarkup(node);
       const frag = document.createDocumentFragment();
-      text.trim().split(/\s+/).filter(Boolean).forEach((word, idx) => {
-        if (idx) frag.appendChild(document.createTextNode(" "));
-        const span = document.createElement("span");
-        span.className = `word hero-word${idx === 0 && !extraClass ? " is-highlight" : ""}${extraClass ? ` ${extraClass}` : ""}`;
-        span.textContent = word;
-        frag.appendChild(span);
-        collected.push(span);
-      });
+      // Keep spaces between plain text and adjacent <span class="text-gradient"> markup
+      if (/^\s/.test(raw) && node.previousSibling) {
+        frag.appendChild(document.createTextNode(" "));
+      }
+      raw
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .forEach((word, idx) => {
+          if (idx) frag.appendChild(document.createTextNode(" "));
+          const span = document.createElement("span");
+          span.className = `word hero-word${idx === 0 && !extraClass && !skipHighlight ? " is-highlight" : ""}${extraClass ? ` ${extraClass}` : ""}`;
+          span.textContent = word;
+          frag.appendChild(span);
+          collected.push(span);
+        });
+      if (/\s$/.test(raw) && node.nextSibling) {
+        frag.appendChild(document.createTextNode(" "));
+      }
       node.replaceWith(frag);
       return collected;
     };
@@ -1138,10 +1166,20 @@ document.addEventListener("DOMContentLoaded", () => {
           if (node.matches(".text-gradient, .hero-highlight")) {
             const highlightClass = node.classList.contains("text-gradient") ? "text-gradient" : "hero-highlight";
             const words = (node.textContent || "").trim().split(/\s+/).filter(Boolean);
-            node.innerHTML = words
-              .map((word) => `<span class="word hero-word ${highlightClass}">${word}</span>`)
-              .join(" ");
-            collected.push(...node.querySelectorAll(".word"));
+            const frag = document.createDocumentFragment();
+            words.forEach((word, idx) => {
+              if (idx) frag.appendChild(document.createTextNode(" "));
+              const span = document.createElement("span");
+              span.className = `word hero-word ${highlightClass}`;
+              span.textContent = word;
+              frag.appendChild(span);
+              collected.push(span);
+            });
+            const next = node.nextSibling;
+            node.replaceWith(frag);
+            if (next && next.nodeType === Node.TEXT_NODE && /^\S/.test(next.textContent || "")) {
+              next.parentNode.insertBefore(document.createTextNode(" "), next);
+            }
           } else {
             Array.from(node.childNodes).forEach(walk);
           }

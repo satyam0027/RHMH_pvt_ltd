@@ -966,6 +966,12 @@ main.page-home > section.home-section .word.text-gradient {
   -webkit-text-fill-color: transparent;
 }
 
+/* Avoid overlapping words when h2 hover tightens letter-spacing */
+main.page-home > section.home-section h2:hover {
+  letter-spacing: -0.022em !important;
+  transform: none !important;
+}
+
 /* ---------- Results First — modern case-study cards ---------- */
 .results-first {
   position: relative;
